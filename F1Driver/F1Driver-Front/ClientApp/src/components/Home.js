@@ -7,11 +7,8 @@ export class Home extends Component {
         return (
             <div>
                 <h1>Welcome</h1>
-                <p>This website is currently under devolopment, to see current F1 news go to:</p>
-                <ul>
-                    <a href='https://www.formula1.com/'>Official F1 website</a>
-                </ul>
-                    <iframe src="https://giphy.com/embed/342Zsv5S4W8XC" width="480" height="252"></iframe>
+                <p>This website is currently under devolopment, to see current F1 news go to: <a href='https://www.formula1.com/'>Official F1 website</a></p>
+                 <iframe src="https://giphy.com/embed/342Zsv5S4W8XC" width="480" height="252"></iframe>
             </div>
         );
     }
