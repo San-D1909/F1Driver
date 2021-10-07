@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F1Driver-Back", "F1Driver-Back\F1Driver-Back.csproj", "{3D464F7A-8851-4859-984F-AF3C58D14D1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F1Driver-Back", "F1Driver-Back\F1Driver-Back.csproj", "{3D464F7A-8851-4859-984F-AF3C58D14D1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F1Driver-Front", "F1Driver-Front\F1Driver-Front.csproj", "{2B64FD1B-575E-4EB6-ACDB-18CB0F582FC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F1Driver-Front", "F1Driver-Front\F1Driver-Front.csproj", "{2B64FD1B-575E-4EB6-ACDB-18CB0F582FC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{27467B9F-E751-4EBA-91F9-15CEB8F32782}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2B64FD1B-575E-4EB6-ACDB-18CB0F582FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B64FD1B-575E-4EB6-ACDB-18CB0F582FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B64FD1B-575E-4EB6-ACDB-18CB0F582FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27467B9F-E751-4EBA-91F9-15CEB8F32782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27467B9F-E751-4EBA-91F9-15CEB8F32782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27467B9F-E751-4EBA-91F9-15CEB8F32782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27467B9F-E751-4EBA-91F9-15CEB8F32782}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
