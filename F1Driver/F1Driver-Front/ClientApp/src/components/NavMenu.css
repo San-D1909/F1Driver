@@ -12,7 +12,11 @@ html {
     font-size: 16px;
   }
 }
-
+.logo-image {
+    width: 200px;
+    height: auto;
+    vertical-align: bottom;
+}
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
