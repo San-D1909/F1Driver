@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelLayer
 {
-    class CircuitModel
+    public class CircuitModel
     {
         public int CircuitID { get; set; }
         public string Name { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelLayer
 {
-    class RaceModel
+    public class RaceModel
     {
         public int RaceID { get; set; }
         public int Year { get; set; }
