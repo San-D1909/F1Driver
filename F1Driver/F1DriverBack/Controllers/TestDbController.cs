@@ -7,38 +7,45 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace F1Driver_Back
+namespace F1Driver_Back.Controllers
 {
+    [Route("[controller]/[action]")]
     public class TestDbController : Controller
     {
-        [Route("[controller]")]
-        public IActionResult Index(IServiceProvider serviceProvider)
+        private readonly ApplicationDbContext _context;
+        public TestDbController(ApplicationDbContext context)
         {
-            Console.WriteLine("");
-            test(serviceProvider);
-            return Ok();
+            _context = context;
+        }
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return Ok("test");
         }
         [HttpPost]
-        public void test(IServiceProvider serviceProvider)
+        public IActionResult Test()
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<
-                    DbContextOptions<ApplicationDbContext>>()))
+            _context.circuit.Add(
+                 new ModelLayer.CircuitModel
+                 {
+                     Country = "germany",
+                     Name = "nurburg",
+                     Map = "link to map"
+                 }
+                 );
+            var race = new ModelLayer.RaceModel()
             {
-                if (context.Race.Any())
-                {
-                    return;
-                }
-                context.Race.AddRange(
-                    new ModelLayer.RaceModel
-                    {
-                        Year = 1980,
-                        Circuit = new ModelLayer.CircuitModel {Country = "Belgium" , Name = "Spa"},
-                        Date = DateTime.Now
-                    }
-                    );
-                context.SaveChanges();
-            }
+                Laps = 58,
+                Date = DateTime.Now,
+                Circuit = 4
+            };
+            _context.Add(race);
+            _context.SaveChanges();
+            //await _context.SaveChangesAsync();
+
+            //filters
+            var selectedCircuit = _context.circuit.Where(b => b.Country == "Belgium");
+            return Ok(selectedCircuit);
         }
     }
 }

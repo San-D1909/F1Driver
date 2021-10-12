@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MySql.EntityFrameworkCore;
+using F1DriverBack.Data;
 
 namespace F1DriverBack
 {
@@ -33,7 +35,7 @@ namespace F1DriverBack
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "F1DriverBack", Version = "v1" });
             });
-            services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("F1DriverDB")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,8 +56,9 @@ namespace F1DriverBack
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers(
+                );
             });
-        }
+            }
     }
-}
+    }
