@@ -12,8 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Datalayer;
 using MySql.EntityFrameworkCore;
-using F1DriverBack.Data;
+
 
 namespace F1DriverBack
 {
@@ -29,7 +30,6 @@ namespace F1DriverBack
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
