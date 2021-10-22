@@ -12,9 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Datalayer;
 using MySql.EntityFrameworkCore;
-
+using DataLayer;
 
 namespace F1DriverBack
 {
@@ -36,6 +35,8 @@ namespace F1DriverBack
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "F1DriverBack", Version = "v1" });
             });
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
+            services.AddScoped<IDriverClass, DriverClass>();
+            services.AddScoped<IConstructorClass, ConstructorClass>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
