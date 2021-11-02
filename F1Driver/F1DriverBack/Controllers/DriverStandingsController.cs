@@ -10,16 +10,16 @@ namespace F1DriverBack.Controllers
     [Route("[controller]/[action]")]
     public class DriverStandingsController : Controller
     {
-        private readonly IDriverClass DriverClass;
-        public DriverStandingsController(IDriverClass driver)
+        private readonly IPopulateDatabase DriverClass;
+        public DriverStandingsController(IPopulateDatabase driver)
         {
             DriverClass = driver;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            bool worked = await DriverClass.InsertDriver();
-            return Ok(worked);
+            await DriverClass.Populate();
+            return Ok();
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    public interface IDriverClass
+    public interface IPopulateDatabase
     {
-        public Task<bool> InsertDriver();
+        public Task<bool> Populate();
     }
 }

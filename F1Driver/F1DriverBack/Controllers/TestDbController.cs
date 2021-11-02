@@ -12,8 +12,8 @@ namespace F1Driver_Back.Controllers
     [Route("[controller]/[action]")]
     public class TestDbController : Controller
     {
-        private readonly IDriverClass DriverClass;
-        public TestDbController(IDriverClass driver)
+        private readonly IPopulateDatabase DriverClass;
+        public TestDbController(IPopulateDatabase driver)
         {
             DriverClass = driver;
         }
@@ -30,7 +30,7 @@ namespace F1Driver_Back.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertDriver(ModelLayer.DriverModel driverModel)
         {
-            await DriverClass.InsertDriver();
+            await DriverClass.Populate();
             return Ok();
         }
 /*        [HttpPost]

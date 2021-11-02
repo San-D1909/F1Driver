@@ -22,5 +22,7 @@ namespace ModelLayer
         public DateTime DateOfBirth { get; set; }
         public string Nationality { get; set; }
         public string Url { get; set; }
+        [NotMapped]
+        public int Points { get; set; }
     }
 }

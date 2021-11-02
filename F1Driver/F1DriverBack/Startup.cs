@@ -35,7 +35,7 @@ namespace F1DriverBack
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "F1DriverBack", Version = "v1" });
             });
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
-            services.AddScoped<IDriverClass, DriverClass>();
+            services.AddScoped<IPopulateDatabase, PopulateDatabase>();
             services.AddScoped<IConstructorClass, ConstructorClass>();
         }
 
