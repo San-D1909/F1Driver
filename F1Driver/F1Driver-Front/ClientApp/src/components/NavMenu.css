@@ -1,22 +1,47 @@
-﻿a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, sans-serif;
 }
 
-html {
-  font-size: 14px;
+.menu {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    border-bottom: 1px solid #eee;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+
+@media (max-width: 650px) {
+    .menu {
+        flex-direction: column;
+        align-items: center;
+    }
 }
-.logo-image {
-    width: 200px;
-    height: auto;
-    vertical-align: bottom;
+
+.menu .item {
+    padding: 18px 28px;
+    cursor: pointer;
+    transition: color 0.3s ease-out;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin: 5px 0;
 }
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+
+.menu .item.active {
+    color: #fff;
+}
+
+.menu .indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 30px;
 }

@@ -2,46 +2,110 @@ import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import gsap from 'gsap';
 
-export class NavMenu extends Component {
-    static displayName = NavMenu.name;
+const { useRef, useState, useEffect, createRef } = React;
 
-    constructor(props) {
-        super(props);
+/*--------------------
+Items
+--------------------*/
+const items = [
+    {
+        name: "Freelance",
+        color: "#f44336",
+        href: "#"
+    },
+    {
+        name: "Design",
+        color: "#e91e63",
+        href: "#"
+    },
+    {
+        name: "Director",
+        color: "#9c27b0",
+        href: "#"
+    },
+    {
+        name: "Experience",
+        color: "#673ab7",
+        href: "#"
+    },
+    {
+        name: "Interface",
+        color: "#3f51b5",
+        href: "#"
+    }
+];
 
-        this.toggleNavbar = this.toggleNavbar.bind(this);
-        this.state = {
-            collapsed: true
-        };
+export const NavMenu = ({ items }) => {
+    const $root = useRef()
+    const $indicator1 = useRef()
+    const $indicator2 = useRef()
+    const $items = useRef(items.map(createRef))
+    const [active, setActive] = useState(0)
+
+    const animate = () => {
+        const menuOffset = $root.current.getBoundingClientRect()
+        const activeItem = $items.current[active].current
+        const { width, height, top, left } = activeItem.getBoundingClientRect()
+
+        const settings = {
+            x: left - menuOffset.x,
+            y: top - menuOffset.y,
+            width: width,
+            height: height,
+            backgroundColor: items[active].color,
+            ease: 'elastic.out(.7, .7)',
+            duration: .8
+        }
+
+        gsap.to($indicator1.current, {
+            ...settings,
+        })
+
+        gsap.to($indicator2.current, {
+            ...settings,
+            duration: 1
+        })
     }
 
-    toggleNavbar() {
-        this.setState({
-            collapsed: !this.state.collapsed
-        });
-    }
+    useEffect(() => {
+        animate()
+        window.addEventListener('resize', animate)
 
-    render() {
-        return (
-            <header>
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-                    <Container>
-                        <a class="navbar-brand" href="/">
-                            <div class="logo-image">
-                                <img src="https://www.pinclipart.com/picdir/middle/377-3771058_free-png-formula-1-logo-png-f1-logo.png" class="img-fluid"></img>
-                            </div>
-                        </a>
-                        <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                            <ul className="navbar-nav flex-grow">
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                                </NavItem>
-                            </ul>
-                        </Collapse>
-                    </Container>
-                </Navbar>
-            </header>
-        );
-    }
+        return (() => {
+            window.removeEventListener('resize', animate)
+        })
+    }, [active])
+
+    return (
+        <div
+            ref={$root}
+            className="menu"
+        >
+            {items.map((item, index) => (
+                <a
+                    key={item.name}
+                    ref={$items.current[index]}
+                    className={`item ${active === index ? 'active' : ''}`}
+                    onMouseEnter={() => {
+                        setActive(index)
+                    }}
+                    href={item.href}
+                >
+                    {item.name}
+                </a>
+            ))}
+            <div
+                ref={$indicator1}
+                className="indicator"
+            />
+            <div
+                ref={$indicator2}
+                className="indicator"
+            />
+        </div>
+    )
 }
+
+export default NavMenu;
