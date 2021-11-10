@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using ModelLayer;
 using System.Threading.Tasks;
+using DataLayer.Classes.Fill_Database;
 
 namespace DataLayer
 {
@@ -21,7 +22,9 @@ namespace DataLayer
         public async Task<bool> Populate()
         {
             await ClearYearDrivers();
-            Classes.PopulateClass getDriverData = new(_context);
+            PopulateDriversAndTeams getDriverData = new(_context);
+            PopulateCircuits getCircuitData = new(_context);
+            await getCircuitData.InsertCircuits(await getCircuitData.GetCircuits());
             await getDriverData.InsertConstrutors(await getDriverData.GetConstructors());
             await getDriverData.LinkDriverToConstructor(await getDriverData.CreateDriver());
             return true;

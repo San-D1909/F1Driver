@@ -10,8 +10,9 @@ namespace ModelLayer
     public class RaceModel
     {
         [Key]
-        public int RaceID { get; set; }
-        public int Circuit{get; set;}
+        public int ID { get; set; }
+        public int CircuitID{get; set;}
+        public int Round { get; set; }
         public int Laps { get; set; }
         public DateTime Date { get; set; }
     }

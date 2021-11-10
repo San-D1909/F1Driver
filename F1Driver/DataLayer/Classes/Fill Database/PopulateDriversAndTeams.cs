@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Classes
+namespace DataLayer.Classes.Fill_Database
 {
-    public class PopulateClass
+    public class PopulateDriversAndTeams
     {
         private readonly ApplicationDbContext _context;
-        public PopulateClass(ApplicationDbContext context)
+        public PopulateDriversAndTeams(ApplicationDbContext context)
         {
             _context = context;
         }
