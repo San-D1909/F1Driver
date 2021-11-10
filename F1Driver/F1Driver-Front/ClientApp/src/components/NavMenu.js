@@ -6,37 +6,6 @@ import gsap from 'gsap';
 
 const { useRef, useState, useEffect, createRef } = React;
 
-/*--------------------
-Items
---------------------*/
-const items = [
-    {
-        name: "Freelance",
-        color: "#f44336",
-        href: "#"
-    },
-    {
-        name: "Design",
-        color: "#e91e63",
-        href: "#"
-    },
-    {
-        name: "Director",
-        color: "#9c27b0",
-        href: "#"
-    },
-    {
-        name: "Experience",
-        color: "#673ab7",
-        href: "#"
-    },
-    {
-        name: "Interface",
-        color: "#3f51b5",
-        href: "#"
-    }
-];
-
 export const NavMenu = ({ items }) => {
     const $root = useRef()
     const $indicator1 = useRef()
@@ -83,6 +52,7 @@ export const NavMenu = ({ items }) => {
             ref={$root}
             className="menu"
         >
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" class="img-fluid"></img>
             {items.map((item, index) => (
                 <a
                     key={item.name}

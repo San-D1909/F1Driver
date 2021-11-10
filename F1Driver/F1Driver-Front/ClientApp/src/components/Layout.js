@@ -3,47 +3,42 @@ import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 
 export class Layout extends Component {
-  static displayName = Layout.name;
+    static displayName = Layout.name;
 
     /*--------------------
     Items
     --------------------*/
     items = [
         {
-            name: "Freelance",
-            color: "#f44336",
+            name: "Upcoming",
+            color: "#C80000 ",
             href: "#"
         },
         {
-            name: "Design",
-            color: "#e91e63",
+            name: "Driver Cup",
+            color: "#C80000 ",
             href: "#"
         },
         {
-            name: "Director",
-            color: "#9c27b0",
+            name: "Constructor Cup",
+            color: "#C80000 ",
             href: "#"
         },
         {
-            name: "Experience",
-            color: "#673ab7",
-            href: "#"
-        },
-        {
-            name: "Interface",
-            color: "#3f51b5",
+            name: "Circuits",
+            color: "#C80000 ",
             href: "#"
         }
     ];
 
-  render () {
-    return (
-      <div>
-            <NavMenu items={ this.items }/>
-        <Container>
-          {this.props.children}
-        </Container>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <NavMenu items={this.items} />
+                <Container>
+                    {this.props.children}
+                </Container>
+            </div>
+        );
+    }
 }
