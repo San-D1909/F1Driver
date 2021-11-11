@@ -10,9 +10,14 @@ namespace ModelLayer
     public class RaceResultModel
     {
         [Key]
-        public int ResultID { get; set; }
-        public RaceModel Race { get; set; }
-        public  DriverModel Driver { get; set; }
-        public ConstructorModel Constructor { get; set; }
+        public int ID { get; set; }
+        public string Points { get; set; }
+        public string Position { get; set; }
+        public string Grid { get; set; }
+        public string Laps { get; set; }
+        public string Status { get; set; }
+        public string Race { get; set; }
+        public string DriverID { get; set; }
+        public string ConstructorID { get; set; }
     }
 }

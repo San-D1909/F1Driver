@@ -11,9 +11,11 @@ namespace ModelLayer
     {
         [Key]
         public int ID { get; set; }
-        public int CircuitID{get; set;}
+        public string RaceName{get; set;}
+        public string CircuitId { get; set; }
+        public int Season { get; set; }
         public int Round { get; set; }
-        public int Laps { get; set; }
+        public string Url { get; set; }
         public DateTime Date { get; set; }
     }
 }

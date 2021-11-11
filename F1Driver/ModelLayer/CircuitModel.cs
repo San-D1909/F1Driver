@@ -15,13 +15,9 @@ namespace ModelLayer
         public string Country { get; set; }
         public string Url { get; set; }
         public string CircuitID { get; set; }
-        
         public string CircuitName { get; set; }
-        
         public float Lat { get; set; }
-        
         public float Long { get; set; }
-        
         public string Locality { get; set; }
     }
 }

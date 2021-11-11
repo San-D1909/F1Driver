@@ -17,11 +17,6 @@ namespace F1Driver_Back.Controllers
         {
             DriverClass = driver;
         }
-/*        private readonly IConstructorClass ConstrutorClass;
-        public TestDbController(IConstructorClass Construtor)
-        {
-            ConstrutorClass = Construtor;
-        }*/
         [HttpGet]
         public IActionResult Index()
         {
@@ -33,11 +28,5 @@ namespace F1Driver_Back.Controllers
             await DriverClass.Populate();
             return Ok();
         }
-/*        [HttpPost]
-        public async Task<IActionResult> InsertConstructor(ModelLayer.ConstructorModel constructorModel)
-        {
-            await ConstrutorClass.InsertConstrutor(constructorModel);
-            return Ok();
-        }*/
     }
 }

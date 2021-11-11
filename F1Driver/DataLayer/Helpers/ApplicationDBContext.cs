@@ -13,6 +13,7 @@ namespace DataLayer
         {
         }
         public DbSet<ModelLayer.RaceModel> Race { get; set; }
+        public DbSet<ModelLayer.RaceResultModel> RaceResult { get; set; }
         public DbSet<ModelLayer.CircuitModel> Circuit { get; set; }
         public DbSet<ModelLayer.DriverModel> Driver { get; set; }
         public DbSet<ModelLayer.ConstructorModel> Constructor { get; set; }
