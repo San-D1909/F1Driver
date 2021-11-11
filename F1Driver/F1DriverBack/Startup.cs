@@ -13,7 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.EntityFrameworkCore;
-using DataLayer;
+using DataLayer.Interfaces;
+using DataLayer.Classes;
 
 namespace F1DriverBack
 {
@@ -34,8 +35,9 @@ namespace F1DriverBack
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "F1DriverBack", Version = "v1" });
             });
-            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
+            services.AddDbContext<DataLayer.ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddScoped<IPopulateDatabase, PopulateDatabase>();
+            services.AddScoped<IGetStandings, GetStandings>();
             services.AddScoped<IConstructorClass, ConstructorClass>();
         }
 

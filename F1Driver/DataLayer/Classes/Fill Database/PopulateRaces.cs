@@ -20,13 +20,13 @@ namespace DataLayer.Classes.Fill_Database
             List<string> drivers = await GetCurrentDrivers();
             List<RaceModel> rounds = await GetAllRounds();
             List<RaceResultModel> results = new();
-            for(int i= 1; i<= rounds.Count();i++)
+            for(int i= 0; i<= rounds.Count();i++)
             {
                 if(rounds[i].Date>DateTime.Now)
                 {
                     break;
                 }
-                results.AddRange(await GetAllResultsPerRound(i));
+                results.AddRange(await GetAllResultsPerRound(i+1));
             }
             await InsertRaces(rounds,results);
             return;

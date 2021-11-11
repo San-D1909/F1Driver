@@ -6,24 +6,20 @@ using DataLayer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using DataLayer.Interfaces;
 
-namespace F1Driver_Back.Controllers
+namespace F1DriverBack.Controllers
 {
     [Route("[controller]/[action]")]
-    public class TestDbController : Controller
+    public class PopulateDB : Controller
     {
         private readonly IPopulateDatabase DriverClass;
-        public TestDbController(IPopulateDatabase driver)
+        public PopulateDB(IPopulateDatabase driverClass)
         {
-            DriverClass = driver;
+            DriverClass = driverClass;
         }
         [HttpGet]
-        public IActionResult Index()
-        {
-            return Ok("test");
-        }
-        [HttpPost]
-        public async Task<IActionResult> InsertDriver(ModelLayer.DriverModel driverModel)
+        public async Task<IActionResult> PopulateDb()
         {
             await DriverClass.Populate();
             return Ok();

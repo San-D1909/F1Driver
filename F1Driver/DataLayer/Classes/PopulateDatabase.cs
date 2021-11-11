@@ -9,8 +9,9 @@ using System.Text;
 using ModelLayer;
 using System.Threading.Tasks;
 using DataLayer.Classes.Fill_Database;
+using DataLayer.Interfaces;
 
-namespace DataLayer
+namespace DataLayer.Classes
 {
     public class PopulateDatabase : IPopulateDatabase
     {
