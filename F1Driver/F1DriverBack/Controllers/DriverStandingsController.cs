@@ -17,11 +17,11 @@ namespace F1DriverBack.Controllers
         {
             GetStandings = getStandings;
         }
-        [HttpGet]
-        public async Task<IActionResult> DriverStandings()
+        [HttpGet("GetDriverStandings")]
+        public async Task<IActionResult> SendDriverStandings()
         {
             List<StandingModel> standingModels = await GetStandings.GetCurrentStandings();
-            return Ok();
+            return Ok(standingModels);
         }
     }
 }

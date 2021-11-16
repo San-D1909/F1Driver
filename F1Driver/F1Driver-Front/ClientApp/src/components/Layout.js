@@ -17,7 +17,7 @@ export class Layout extends Component {
         {
             name: "Driver Cup",
             color: "#C80000 ",
-            href: "#"
+            href: "\DriverStandings"
         },
         {
             name: "Constructor Cup",

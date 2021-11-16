@@ -26,7 +26,7 @@ namespace DataLayer.Classes
             PopulateDriversAndTeams getDriverData = new(_context);
             PopulateCircuits getCircuitData = new(_context);
             PopulateRaces getRaceData = new(_context);
-            await getCircuitData.InsertCircuits(await getCircuitData.GetCircuits());
+             await getCircuitData.InsertCircuits(await getCircuitData.GetCircuits());
             await getDriverData.InsertConstrutors(await getDriverData.GetConstructors());
             await getDriverData.LinkDriverToConstructor(await getDriverData.CreateDriver());
             getRaceData.RaceHelper();
