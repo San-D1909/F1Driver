@@ -52,7 +52,7 @@ export const NavMenu = ({ items }) => {
             ref={$root}
             className="menu"
         >
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" class="img-fluid"></img>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" class="img-fluid" onClick={event => window.location.href = '/'}></img>
             {items.map((item, index) => (
                 <a
                     key={item.name}
