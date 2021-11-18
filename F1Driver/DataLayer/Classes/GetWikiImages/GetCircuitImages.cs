@@ -21,23 +21,22 @@ namespace DataLayer.Classes.GetWikiImages
             foreach (RaceModel race in races)
             {
                 CircuitModel circuit = _context.Circuit.Where(c => c.CircuitID == race.CircuitId).First();
-                circuit.Url = circuit.Url.Remove(0, 29);
-                WikiAPIHelper api = new WikiAPIHelper { RequestString = circuit.Url };
+                WikiAPIHelper api = new WikiAPIHelper { RequestString = circuit.Url.Remove(0, 29)};//remove unneeded part of the url
                 JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
-                List<JToken> imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();
-                if (imageToken.Count() < 1)
+                List<JToken> imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();//navigate to the image
+                if (imageToken.Count() < 1)//check if the url is working
                 {
-                    api = new WikiAPIHelper { RequestString = circuit.CircuitID };
+                    api = new WikiAPIHelper { RequestString = circuit.CircuitID };//url didnt work so now try it with the id of the circuit instead
                     parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
-                    parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();
-                    race.ImageUrl = imageToken[0].ToString();
+                    imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();
+                    race.ImageUrl = imageToken[0].ToString();//convert jtoken to string
                 }
-                else
+                else//url works and image is received
                 {
-                    race.ImageUrl = imageToken[0].ToString();
-                }
+                    race.ImageUrl = imageToken[0].ToString();//convert jtoken to string
+                }  
             }
-            return null;
+            return races;
         }
     }
 }

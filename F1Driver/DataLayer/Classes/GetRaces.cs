@@ -25,10 +25,13 @@ namespace DataLayer.Classes
             races = await getCircuitImages.GetImages(races);
             return races;
         }
-        public Task<RaceModel> GetUpcomingRaceDB()
+        public async Task<RaceModel> GetUpcomingRaceDB()
         {//Get upcoming race
-            RaceModel race = _context.Race.Where(r => r.Date >= DateTime.Now).First();
-            return Task.FromResult(race);
+            List<RaceModel> race = new();
+            race.Add(_context.Race.Where(r => r.Date >= DateTime.Now).First());//Adds most recent race to list
+            GetCircuitImages getCircuitImages = new GetCircuitImages(_context);
+            race = await getCircuitImages.GetImages(race);//get image of the circuit
+            return race[0];
         }
     }
 }

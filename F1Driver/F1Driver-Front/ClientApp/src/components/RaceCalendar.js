@@ -33,6 +33,7 @@ export class RaceCalendar extends Component {
                             <td style={{ color: 'white' }}>Race: {Race.raceName}</td>
                             <td style={{ color: 'white' }}>Round: {Race.round}</td>
                             <td style={{ color: 'white' }}>Date: {Race.date}</td>
+                            <td style={{ color: 'white' }}>Image: <img src={Race.imageUrl}></img></td>
                             <td><a href={Race.url}>Go to wiki</a></td>
                         </tr>
                     )}
