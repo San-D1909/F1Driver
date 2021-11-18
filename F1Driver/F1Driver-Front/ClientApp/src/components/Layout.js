@@ -27,7 +27,7 @@ export class Layout extends Component {
         {
             name: "Circuits",
             color: "#C80000 ",
-            href: "#"
+            href: "\RaceCalendar"
         }
     ];
 

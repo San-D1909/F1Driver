@@ -17,8 +17,7 @@ namespace DataLayer.Classes
         }
         public async Task<List<StandingModel>> GetCurrentStandings()
         {
-            List<StandingModel> standingModels = await GetStandingsDB();
-            return standingModels;
+            return await GetStandingsDB();
         }
         public Task<List<StandingModel>> GetStandingsDB()
         {

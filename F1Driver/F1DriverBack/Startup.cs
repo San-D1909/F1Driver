@@ -42,7 +42,7 @@ namespace F1DriverBack
             services.AddDbContext<DataLayer.ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddScoped<IPopulateDatabase, PopulateDatabase>();
             services.AddScoped<IGetStandings, GetStandings>();
-            services.AddScoped<IConstructorClass, ConstructorClass>();
+            services.AddScoped<IGetRaces, GetRaces>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
