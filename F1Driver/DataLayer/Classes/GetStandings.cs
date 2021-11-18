@@ -17,10 +17,10 @@ namespace DataLayer.Classes
         }
         public async Task<List<StandingModel>> GetCurrentStandings()
         {
-            List<StandingModel> standingModels = await GetDriverStandings();
+            List<StandingModel> standingModels = await GetStandingsDB();
             return standingModels;
         }
-        public Task<List<StandingModel>> GetDriverStandings()
+        public Task<List<StandingModel>> GetStandingsDB()
         {
             List<DriverModel> drivers = _context.Driver.Where(d => d.DriverID != "").ToList();
             List<StandingModel> standingModels = new();

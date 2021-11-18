@@ -36,7 +36,7 @@ export class DriverStandings extends Component {
                     {DriverStandings.map(standing =>
                         <tr key={standing.Position}>
                             <td style={{ color: 'white' }}>position: {standing.position}</td>
-                            <td style={{ color: 'white' }}>DriverID: {standing.driver.driverID}</td>
+                            <td style={{ color: 'white' }}>DriverID: {standing.driver.givenName} {standing.driver.familyName}</td>
                             <td style={{ color: 'white' }}>Points: {standing.points}</td>
                             <td><a href={standing.driver.url}>Go to wiki</a></td>
                         </tr>
@@ -51,7 +51,7 @@ export class DriverStandings extends Component {
 
     render() {
         let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
+            ? <p style={{ color: 'white' }}><em>Loading...</em></p>
             : DriverStandings.renderTable(this.state.standings)
 
 

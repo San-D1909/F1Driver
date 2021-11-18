@@ -29,9 +29,9 @@ export class ConstructorStandings extends Component {
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <tbody>
                     {ConstructorStandings.map(standing =>
-                        <tr key={standing.Position}>
+                        <tr key={standing.constructor}>
                             <td style={{ color: 'white' }}>position: {standing.position}</td>
-                            <td style={{ color: 'white' }}>ConstructorID: {standing.constructor.constructorID}</td>
+                            <td style={{ color: 'white' }}>Constructor: {standing.constructor.name}</td>
                             <td style={{ color: 'white' }}>Points: {standing.points}</td>
                             <td><a href={standing.constructor.url}>Go to wiki</a></td>
                         </tr>
@@ -46,7 +46,7 @@ export class ConstructorStandings extends Component {
 
     render() {
         let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
+            ? <p style={{ color: 'white' }}><em>Loading...</em></p>
             : ConstructorStandings.renderTable(this.state.standings)
 
 
