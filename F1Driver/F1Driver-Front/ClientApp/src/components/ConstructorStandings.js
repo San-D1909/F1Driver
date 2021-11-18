@@ -65,7 +65,7 @@ export class ConstructorStandings extends Component {
         var self = this;
         axios({
             method: 'get',
-            url: 'https://localhost:44378/ConstructorStandings/SendConstructorStandings/GetConstructorStandings'
+            url: 'https://localhost:44378/ConstructorStandings/SendConstructorStandings/ConstructorStandings'
         }).then(function (data) {
             console.log(data.data);
             self.setState({ standings: data.data, loading: false });

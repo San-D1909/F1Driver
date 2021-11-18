@@ -16,17 +16,16 @@ namespace DataLayer.Classes
             _context = context;
         }
         public Task<List<RaceModel>> GetSeasonsRacesDB()
-        {
-            //get this seasons
-            int year = DateTime.Now.Year;
+        {//Get this seasons races
+            int year = DateTime.Now.Year;//use this because of bug with query where it cannot be used directly.
             List<RaceModel> races = _context.Race.Where(r => r.Season == year).ToList();
-            races = races.OrderBy(r => r.Date).ToList();
+            races = races.OrderBy(r => r.Date).ToList();//sort the list by date
             return Task.FromResult(races);
         }
         public Task<RaceModel> GetUpcomingRaceDB()
-        {
-            RaceModel races = _context.Race.Where(r => r.Date >= DateTime.Now).First();
-            throw new NotImplementedException();
+        {//Get upcoming race
+            RaceModel race = _context.Race.Where(r => r.Date >= DateTime.Now).First();
+            return Task.FromResult(race);
         }
     }
 }

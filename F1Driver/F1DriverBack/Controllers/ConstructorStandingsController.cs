@@ -17,7 +17,7 @@ namespace F1DriverBack.Controllers
         {
             GetStandings = getStandings;
         }
-        [HttpGet("GetConstructorStandings")]
+        [HttpGet("ConstructorStandings")]
         public async Task<IActionResult> SendConstructorStandings()
         {
             List<StandingModel> standingModels = await GetStandings.GetCurrentStandings();

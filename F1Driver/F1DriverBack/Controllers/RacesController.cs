@@ -16,14 +16,14 @@ namespace F1DriverBack.Controllers
         {
             GetRaces = getRaces;
         }
-        [HttpGet("GetSeasonsRaces")]
+        [HttpGet("SeasonsRaces")]
         public async Task<IActionResult> SendRaces()
         {
             List<RaceModel> races = await GetRaces.GetSeasonsRacesDB();
             return Ok(races);
         }
 
-        [HttpGet("GetSeasonsRaces")]
+        [HttpGet("UpcomingRace")]
         public async Task<IActionResult> SendUpcomingRace()
         {
             RaceModel upcomingRace = await GetRaces.GetUpcomingRaceDB();

@@ -12,7 +12,7 @@ export class Layout extends Component {
         {
             name: "Upcoming",
             color: "#C80000 ",
-            href: "#"
+            href: "\UpcomingRace"
         },
         {
             name: "Driver Cup",

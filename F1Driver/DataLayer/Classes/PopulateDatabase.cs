@@ -21,7 +21,7 @@ namespace DataLayer.Classes
             _context = context;
         }
         public async Task<bool> Populate()
-        {
+        {//Method that calls all the classes to fill the database
             await ClearYearDrivers();
             PopulateDriversAndTeams getDriverData = new(_context);
             PopulateCircuits getCircuitData = new(_context);
@@ -33,8 +33,9 @@ namespace DataLayer.Classes
             return true;
         }
        public Task<bool> ClearYearDrivers()
-        {
+        {//drops all drivers so old ones dont stay in the system
             _context.Driver.FromSqlRaw("TRUNCATE driver").ToListAsync();
+            _context.Constructor.FromSqlRaw("TRUNCATE constructor").ToListAsync();
             _context.SaveChangesAsync();
             return Task.FromResult(true);
         }
