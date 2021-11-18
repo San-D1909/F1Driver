@@ -22,7 +22,7 @@ export class Layout extends Component {
         {
             name: "Constructor Cup",
             color: "#C80000 ",
-            href: "#"
+            href: "\ConstructorStandings"
         },
         {
             name: "Circuits",

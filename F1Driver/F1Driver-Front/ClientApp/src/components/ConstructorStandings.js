@@ -3,8 +3,8 @@ import axios from 'axios';
 
 
 
-export class DriverStandings extends Component {
-    static displayName = DriverStandings;
+export class ConstructorStandings extends Component {
+    static displayName = ConstructorStandings;
 
 
 
@@ -24,21 +24,16 @@ export class DriverStandings extends Component {
 
 
 
-    static renderTable(DriverStandings) {
+    static renderTable(ConstructorStandings) {
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
-{/*                <thead>
-                    <tr>
-                        <th >title</th>
-                    </tr>
-                </thead>*/}
                 <tbody>
-                    {DriverStandings.map(standing =>
+                    {ConstructorStandings.map(standing =>
                         <tr key={standing.Position}>
                             <td style={{ color: 'white' }}>position: {standing.position}</td>
-                            <td style={{ color: 'white' }}>DriverID: {standing.driver.driverID}</td>
+                            <td style={{ color: 'white' }}>ConstructorID: {standing.constructor.constructorID}</td>
                             <td style={{ color: 'white' }}>Points: {standing.points}</td>
-                            <td><a href={standing.driver.url}>Go to wiki</a></td>
+                            <td><a href={standing.constructor.url}>Go to wiki</a></td>
                         </tr>
                     )}
                 </tbody>
@@ -52,13 +47,13 @@ export class DriverStandings extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : DriverStandings.renderTable(this.state.standings)
+            : ConstructorStandings.renderTable(this.state.standings)
 
 
 
         return (
             <div>
-                <h1 style={{ color: 'white' }} id="tableLabel">DriverStandings</h1>
+                <h1 style={{ color: 'white' }} id="tableLabel">ConstructorStandings</h1>
                 <p style={{ color: 'white' }}>Current standings</p>
                 {contents}
             </div>
@@ -70,7 +65,7 @@ export class DriverStandings extends Component {
         var self = this;
         axios({
             method: 'get',
-            url: 'https://localhost:44378/DriverStandings/SendDriverStandings/GetDriverStandings'
+            url: 'https://localhost:44378/ConstructorStandings/SendConstructorStandings/GetConstructorStandings'
         }).then(function (data) {
             console.log(data.data);
             self.setState({ standings: data.data, loading: false });

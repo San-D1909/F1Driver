@@ -21,6 +21,11 @@ namespace F1DriverBack.Controllers
         public async Task<IActionResult> SendDriverStandings()
         {
             List<StandingModel> standingModels = await GetStandings.GetCurrentStandings();
+            standingModels = standingModels.OrderByDescending(d => d.Points).ToList();
+            for (int i = 0; i < standingModels.Count(); i++)
+            {
+                standingModels[i].Position = i+1;
+            }
             return Ok(standingModels);
         }
     }

@@ -17,24 +17,41 @@ namespace DataLayer.Classes.Fill_Database
         }
         public async void RaceHelper()
         {
-            List<string> drivers = await GetCurrentDrivers();
             List<RaceModel> rounds = await GetAllRounds();
             List<RaceResultModel> results = new();
-            for(int i= 0; i<= rounds.Count();i++)
+            for (int i = 0; i <= rounds.Count(); i++)
             {
-                if(rounds[i].Date>DateTime.Now)
+                if (rounds[i].Date > DateTime.Now)
                 {
                     break;
                 }
-                results.AddRange(await GetAllResultsPerRound(i+1));
+                results.AddRange(await GetAllResultsPerRound(i + 1));
             }
-            await InsertRaces(rounds,results);
+            await InsertRaces(rounds, results);
+            await FillRaceAmountDrivers(results);
             return;
         }
-        public Task<List<string>> GetCurrentDrivers()
+        public Task<bool> FillRaceAmountDrivers(List<RaceResultModel> results)
         {
-            List<string> drivers = _context.Driver.Where(d => d.DriverID != "").Select(d => d.DriverID).ToList();
-            return Task.FromResult(drivers);
+            List<DriverModel> drivers = _context.Driver.Where(d => d.DriverID != "").ToList();
+            foreach (DriverModel driver in drivers)
+            {
+                driver.RaceAmount = 0;
+                foreach (RaceResultModel result in results)
+                {
+                    if (result.DriverID == driver.DriverID)
+                    {
+                        driver.RaceAmount += 1;
+                    }
+                }
+            }
+            foreach (DriverModel driver in drivers)
+            {
+                if (_context.Driver.Any(d => d.RaceAmount == driver.RaceAmount)) continue;
+                _context.Driver.Update(driver);
+                _context.SaveChangesAsync();
+            }
+            return Task.FromResult(true);
         }
         public async Task<List<RaceModel>> GetAllRounds()
         {
@@ -66,7 +83,7 @@ namespace DataLayer.Classes.Fill_Database
             }
             return raceResultModels;
         }
-        public Task<bool> InsertRaces(List<RaceModel> raceModels,List<RaceResultModel> raceResultModels)
+        public Task<bool> InsertRaces(List<RaceModel> raceModels, List<RaceResultModel> raceResultModels)
         {
             for (int i = 0; i < raceModels.Count; i++)
             {
@@ -76,8 +93,8 @@ namespace DataLayer.Classes.Fill_Database
             }
             for (int i = 0; i < raceResultModels.Count; i++)
             {
-                if (_context.RaceResult.Any(s => s.Race == raceResultModels[i].Race&&s.DriverID==raceResultModels[i].DriverID)) continue;
-                
+                if (_context.RaceResult.Any(s => s.Race == raceResultModels[i].Race && s.DriverID == raceResultModels[i].DriverID)) continue;
+
                 _context.Add(raceResultModels[i]);
                 _context.SaveChangesAsync();
             }

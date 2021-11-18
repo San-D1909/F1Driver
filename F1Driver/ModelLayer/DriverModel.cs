@@ -23,6 +23,6 @@ namespace ModelLayer
         public string Nationality { get; set; }
         public string Url { get; set; }
         [NotMapped]
-        public int Points { get; set; }
+        public float Points { get; set; }
     }
 }
