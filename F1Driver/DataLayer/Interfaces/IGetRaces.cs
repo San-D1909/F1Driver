@@ -10,5 +10,6 @@ namespace DataLayer.Interfaces
     public interface IGetRaces
     {
         public Task<List<RaceModel>> GetSeasonsRacesDB();
+        public Task<RaceModel> GetUpcomingRaceDB();
     }
 }

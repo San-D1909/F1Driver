@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace F1DriverBack.Controllers
 {
     [Route("[controller]/[action]")]
-    public class SeasonsRacesController : Controller
+    public class RacesController : Controller
     {
         private readonly IGetRaces GetRaces;
-        public SeasonsRacesController(IGetRaces getRaces)
+        public RacesController(IGetRaces getRaces)
         {
             GetRaces = getRaces;
         }
@@ -21,6 +21,13 @@ namespace F1DriverBack.Controllers
         {
             List<RaceModel> races = await GetRaces.GetSeasonsRacesDB();
             return Ok(races);
+        }
+
+        [HttpGet("GetSeasonsRaces")]
+        public async Task<IActionResult> SendUpcomingRace()
+        {
+            RaceModel upcomingRace = await GetRaces.GetUpcomingRaceDB();
+            return Ok(upcomingRace);
         }
     }
 }

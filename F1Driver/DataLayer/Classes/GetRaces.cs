@@ -23,5 +23,10 @@ namespace DataLayer.Classes
             races = races.OrderBy(r => r.Date).ToList();
             return Task.FromResult(races);
         }
+        public Task<RaceModel> GetUpcomingRaceDB()
+        {
+            RaceModel races = _context.Race.Where(r => r.Date >= DateTime.Now).First();
+            throw new NotImplementedException();
+        }
     }
 }
