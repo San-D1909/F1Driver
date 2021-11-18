@@ -20,6 +20,7 @@ namespace F1DriverBack.Controllers
         public async Task<IActionResult> SendRaces()
         {
             List<RaceModel> races = await GetRaces.GetSeasonsRacesDB();
+
             return Ok(races);
         }
 
