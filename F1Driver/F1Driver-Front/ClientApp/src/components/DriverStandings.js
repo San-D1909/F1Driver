@@ -37,6 +37,7 @@ export class DriverStandings extends Component {
                         <tr key={standing.Position}>
                             <td style={{ color: 'white' }}>position: {standing.position}</td>
                             <td style={{ color: 'white' }}>DriverID: {standing.driver.givenName} {standing.driver.familyName}</td>
+                            <td style={{ color: 'white' }}>Image: <img src={standing.driver.imageUrl} width="auto" height="170"></img></td>
                             <td style={{ color: 'white' }}>Points: {standing.points}</td>
                             <td><a href={standing.driver.url}>Go to wiki</a></td>
                         </tr>

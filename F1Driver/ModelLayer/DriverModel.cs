@@ -24,5 +24,7 @@ namespace ModelLayer
         public string Url { get; set; }
         [NotMapped]
         public float Points { get; set; }
+        [NotMapped]
+        public string ImageUrl { get; set; }
     }
 }

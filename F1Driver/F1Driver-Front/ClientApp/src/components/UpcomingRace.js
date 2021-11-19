@@ -1,8 +1,6 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
 
-
-
 export class UpcomingRace extends Component {
     static displayName = UpcomingRace;
 
@@ -18,34 +16,40 @@ export class UpcomingRace extends Component {
         this.populateData();
     }
 
-    static renderTable(UpcomingRace) {
+
+
+    static render(Race) {
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <tbody>
-{/*                    {UpcomingRace.map(Race =>
-                        <tr key={Race.circuitId}>
-                            <td style={{ color: 'white' }}>Race: {Race.raceName}</td>
-                            <td style={{ color: 'white' }}>Round: {Race.round}</td>
-                            <td style={{ color: 'white' }}>Date: {Race.date}</td>
-                            <td><a href={Race.url}>Go to wiki</a></td>
-                        </tr>
-                    )}*/}
-                </tbody>
-            </table>
+            <body>
+                <div class="row" >
+                    {Race.map(race =>
+                        <div class="col-sm-4">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <img class="card-img-top" src={race.imageUrl} alt="Card image cap" width="auto" height="auto"></img>
+                                    <h5 class="card-title">{race.raceName}</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </body>
         )
     }
+
 
     render() {
         let contents = this.state.loading
             ? <p style={{ color: 'white' }}><em>Loading...</em></p>
-            : UpcomingRace.renderTable(this.state.Race)
+            : UpcomingRace.render(this.state.Race)
 
 
 
         return (
             <div>
                 <h1 style={{ color: 'white' }} id="tableLabel">UpcomingRace</h1>
-                <p style={{ color: 'white' }}>This years races</p>
                 {contents}
             </div>
         )

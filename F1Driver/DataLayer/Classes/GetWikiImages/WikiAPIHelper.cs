@@ -11,7 +11,7 @@ namespace DataLayer.Classes.GetWikiImages
     public class WikiAPIHelper
     {
         readonly string baseURL = "https://en.wikipedia.org/w/api.php?action=query&titles=";
-        readonly string SecondPart = "&prop=pageimages&format=json&pithumbsize=100";
+        readonly string SecondPart = "&prop=pageimages&format=json&pithumbsize=2000";
         public string RequestString
         {
             get { return requestString; }

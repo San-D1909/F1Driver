@@ -21,17 +21,17 @@ namespace DataLayer.Classes
             int year = DateTime.Now.Year;//use this because of bug with query where it cannot be used directly.
             List<RaceModel> races = _context.Race.Where(r => r.Season == year).ToList();
             races = races.OrderBy(r => r.Date).ToList();//sort the list by date
-            GetCircuitImages getCircuitImages = new GetCircuitImages(_context);
-            races = await getCircuitImages.GetImages(races);
+            GetImages getImages = new GetImages(_context);
+            races = await getImages.GetsCircuitImages(races);
             return races;
         }
-        public async Task<RaceModel> GetUpcomingRaceDB()
+        public async Task<List<RaceModel>> GetUpcomingRaceDB()
         {//Get upcoming race
             List<RaceModel> race = new();
-            race.Add(_context.Race.Where(r => r.Date >= DateTime.Now).First());//Adds most recent race to list
-            GetCircuitImages getCircuitImages = new GetCircuitImages(_context);
-            race = await getCircuitImages.GetImages(race);//get image of the circuit
-            return race[0];
+            race = _context.Race.Where(r => r.Date >= DateTime.Now).ToList();//Adds most recent race to list
+            GetImages getImages = new GetImages(_context);
+            race = await getImages.GetsCircuitImages(race);//get image of the circuit
+            return race;
         }
     }
 }

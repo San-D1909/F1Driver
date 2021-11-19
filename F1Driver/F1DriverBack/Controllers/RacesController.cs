@@ -27,7 +27,7 @@ namespace F1DriverBack.Controllers
         [HttpGet("UpcomingRace")]
         public async Task<IActionResult> SendUpcomingRace()
         {
-            RaceModel upcomingRace = await GetRaces.GetUpcomingRaceDB();
+            List<RaceModel> upcomingRace = await GetRaces.GetUpcomingRaceDB();
             return Ok(upcomingRace);
         }
     }

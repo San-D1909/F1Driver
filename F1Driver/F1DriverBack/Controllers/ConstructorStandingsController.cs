@@ -20,28 +20,7 @@ namespace F1DriverBack.Controllers
         [HttpGet("ConstructorStandings")]
         public async Task<IActionResult> SendConstructorStandings()
         {
-            List<StandingModel> standingModels = await GetStandings.GetCurrentStandings();
-            List<ConstructorStandingsModel> Constructors = new();
-            for (int i = 0; i < standingModels.Count(); i++)
-            {
-                standingModels[i].Driver.Points = standingModels[i].Points;
-                if (Constructors.Any(a => a.Constructor == standingModels[i].Constructor))
-                {
-                    Constructors.Find(a => a.Constructor == standingModels[i].Constructor).Drivers.Add(standingModels[i].Driver);
-                    Constructors.Find(a => a.Constructor == standingModels[i].Constructor).Points += standingModels[i].Points;
-                }
-                else
-                {
-                    List<DriverModel> driverModels = new List<DriverModel> { standingModels[i].Driver };
-                    ConstructorStandingsModel standing = new ConstructorStandingsModel { Constructor = standingModels[i].Constructor ,Points = standingModels[i].Points,Drivers = driverModels };
-                    Constructors.Add(standing);
-                }
-            }
-            Constructors = Constructors.OrderByDescending(d => d.Points).ToList();
-            for (int i = 0; i < Constructors.Count(); i++)
-            {
-                Constructors[i].Position = i + 1;
-            }
+            List<ConstructorStandingsModel> Constructors = await GetStandings.ConstructorStandingsGenerator();
             return Ok(Constructors);
         }
     }

@@ -10,5 +10,6 @@ namespace DataLayer.Interfaces
     public interface IGetStandings
     {
         public Task<List<StandingModel>> GetCurrentStandings();
+        public Task<List<ConstructorStandingsModel>> ConstructorStandingsGenerator();
     }
 }
