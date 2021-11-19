@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
-
-
+import "./CSS/Cards.css";
 
 export class RaceCalendar extends Component {
     static displayName = RaceCalendar;
@@ -22,33 +21,38 @@ export class RaceCalendar extends Component {
         this.populateData();
     }
 
-
-
-    static renderTable(RaceCalendar) {
+    static render(RaceCalendar) {
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <tbody>
+            <body>
+                <div class="row" >
                     {RaceCalendar.map(Race =>
-                        <tr key={Race.circuitId}>
-                            <td style={{ color: 'white' }}>Race: {Race.raceName}</td>
-                            <td style={{ color: 'white' }}>Round: {Race.round}</td>
-                            <td style={{ color: 'white' }}>Date: {Race.date}</td>
-                            <td style={{ color: 'white' }}>Image: <img src={Race.imageUrl} width="auto" height= "170"></img></td>
-                            <td><a href={Race.url}>Go to wiki</a></td>
-                        </tr>
+                        <div class="col-sm-4 mt-4">
+                            <div class="card" style={{ backgroundColor: "white", minHeight: "520px", maxHeight: "520px", borderColor: "#FF1801" }}>
+                                <div class="card-body">
+                                    <img class="card-img-top" style={{ maxHeight: "200px" }} src={Race.imageUrl} alt="Card image cap" width="auto" height="auto" ></img>
+                                    <h4 style={{ textAlign: "center", fontWeight: "bold" }} class="card-title">{Race.raceName}</h4>
+                                    <hr class="solid"></hr>
+                                    <p style={{ textAlign: "center" }} class="card-text">Date: {Race.date}</p>
+                                    <p style={{ textAlign: "center" }} class="card-text">Round: {Race.round}</p>
+                                    <p style={{ textAlign: "center" }} class="card-text">Country: {Race.country}</p>
+                                </div>
+                                <div class="card-footer" style={{ backgroundColor: "darkgray", Height: "auto", maxHeight: "auto" }} >
+                                    <img src={Race.flagUrl} width="auto" Height="50px"  ></img>
+                                </div>
+                            </div>
+                            <p><button class="buttonCard" onClick={Race.url}>Go to wiki</button></p>
+                        </div>
                     )}
-                </tbody>
-            </table>
+                </div>
+            </body>
         )
     }
-
-
 
 
     render() {
         let contents = this.state.loading
             ? <p style={{ color: 'white' }}><em>Loading...</em></p>
-            : RaceCalendar.renderTable(this.state.Races)
+            : RaceCalendar.render(this.state.Races)
 
 
 

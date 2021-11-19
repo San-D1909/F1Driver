@@ -34,7 +34,8 @@ namespace DataLayer.Classes
         public async Task<List<RaceModel>> GetUpcomingRaceDB()
         {//Get upcoming race
             List<RaceModel> races = new();
-            races = _context.Race.Where(r => r.Date >= DateTime.Now).ToList();//Adds most recent race to list
+            DateTime date = DateTime.Now.AddMonths(2);//EDIT THIS DATE FOR USING DIFFRENT MONTH IN UPCOMMING PAGE.
+            races = _context.Race.Where(r => r.Date >= date).ToList();//Adds most recent race to list
             GetImages getImages = new GetImages(_context);
             races = await getImages.GetsCircuitImages(races);//get image of the circuit
             foreach(RaceModel race in races)
