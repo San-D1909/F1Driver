@@ -20,5 +20,9 @@ namespace ModelLayer
         public DateTime Date { get; set; }
         [NotMapped]
         public string ImageUrl { get; set; }
+        [NotMapped]
+        public string FlagUrl { get; set; }
+        [NotMapped]
+        public string Country { get; set; }
     }
 }

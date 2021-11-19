@@ -23,15 +23,27 @@ namespace DataLayer.Classes
             races = races.OrderBy(r => r.Date).ToList();//sort the list by date
             GetImages getImages = new GetImages(_context);
             races = await getImages.GetsCircuitImages(races);
+            foreach (RaceModel race in races)
+            {
+                CircuitModel Circuit = _context.Circuit.Where(c => c.CircuitID == race.CircuitId).First();
+                race.FlagUrl = await getImages.GetCountryFlag(Circuit.Country);
+                race.Country = Circuit.Country;
+            }
             return races;
         }
         public async Task<List<RaceModel>> GetUpcomingRaceDB()
         {//Get upcoming race
-            List<RaceModel> race = new();
-            race = _context.Race.Where(r => r.Date >= DateTime.Now).ToList();//Adds most recent race to list
+            List<RaceModel> races = new();
+            races = _context.Race.Where(r => r.Date >= DateTime.Now).ToList();//Adds most recent race to list
             GetImages getImages = new GetImages(_context);
-            race = await getImages.GetsCircuitImages(race);//get image of the circuit
-            return race;
+            races = await getImages.GetsCircuitImages(races);//get image of the circuit
+            foreach(RaceModel race in races)
+            {
+                CircuitModel Circuit = _context.Circuit.Where(c => c.CircuitID == race.CircuitId).First();
+                race.FlagUrl = await getImages.GetCountryFlag(Circuit.Country);
+                race.Country = Circuit.Country;
+            }
+            return races;
         }
     }
 }
