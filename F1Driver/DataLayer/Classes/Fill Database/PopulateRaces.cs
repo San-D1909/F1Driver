@@ -55,7 +55,7 @@ namespace DataLayer.Classes.Fill_Database
         }
         public async Task<List<RaceModel>> GetAllRounds()
         {
-            API api = new API { RequestString = "current" };
+            API api = new API { F1RequestString = "current" };
             JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
             List<JToken> races = parsed["MRData"]["RaceTable"]["Races"].Children().ToList();
             List<RaceModel> raceModels = new();
@@ -69,7 +69,7 @@ namespace DataLayer.Classes.Fill_Database
         }
         public async Task<List<RaceResultModel>> GetAllResultsPerRound(int round)
         {
-            API api = new API { RequestString = "current/" + round + "/results" };
+            API api = new API { F1RequestString = "current/" + round + "/results" };
             JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
             List<JToken> raceResults = parsed["MRData"]["RaceTable"]["Races"][0]["Results"].Children().ToList();
             List<RaceResultModel> raceResultModels = new();

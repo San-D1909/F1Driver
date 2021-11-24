@@ -17,7 +17,7 @@ namespace DataLayer.Classes.Fill_Database
         }
         public async Task<List<CircuitModel>> GetCircuits()
         {
-            API api = new API { RequestString = "current/circuits" };
+            API api = new API { F1RequestString = "current/circuits" };
             JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
             List<JToken> circuits = parsed["MRData"]["CircuitTable"]["Circuits"].Children().ToList();
             List<CircuitModel> circuitModels = new();

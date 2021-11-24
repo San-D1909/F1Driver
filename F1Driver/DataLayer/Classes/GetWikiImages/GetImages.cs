@@ -21,12 +21,12 @@ namespace DataLayer.Classes.GetWikiImages
             foreach (RaceModel race in races)
             {
                 CircuitModel circuit = _context.Circuit.Where(c => c.CircuitID == race.CircuitId).First();
-                WikiAPIHelper api = new WikiAPIHelper { RequestString = circuit.Url.Remove(0, 29) };//remove unneeded part of the url
+                API api = new API { RequestString = circuit.Url.Remove(0, 29) };//remove unneeded part of the url
                 JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
                 List<JToken> imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();//navigate to the image
                 if (imageToken.Count() < 1)//check if the url is working
                 {
-                    api = new WikiAPIHelper { RequestString = circuit.CircuitID };//url didnt work so now try it with the id of the circuit instead
+                    api = new API { RequestString = circuit.CircuitID };//url didnt work so now try it with the id of the circuit instead
                     parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
                     imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();
                 }
@@ -38,12 +38,12 @@ namespace DataLayer.Classes.GetWikiImages
         {
             foreach (DriverModel driver in drivers)
             {
-                WikiAPIHelper api = new WikiAPIHelper { RequestString = driver.Url.Remove(0, 29) };//remove unneeded part of the url
+                API api = new API { RequestString = driver.Url.Remove(0, 29) };//remove unneeded part of the url
                 JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
                 List<JToken> imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();//navigate to the image
                 if (imageToken.Count() < 1)//check if the url is working
                 {
-                    api = new WikiAPIHelper { RequestString = driver.DriverID };//url didnt work so now try it with the id of the circuit instead
+                    api = new API { RequestString = driver.DriverID };//url didnt work so now try it with the id of the circuit instead
                     parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
                     imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();
                 }
@@ -70,12 +70,12 @@ namespace DataLayer.Classes.GetWikiImages
                 }*/
         public async Task<string> GetCountryFlag(string flag)
         {
-                WikiAPIHelper api = new WikiAPIHelper { RequestString = flag};//remove unneeded part of the url
+                API api = new API { RequestString = flag};//remove unneeded part of the url
                 JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
                 List<JToken> imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();//navigate to the image
                 if (imageToken.Count() < 1)//check if the url is working
                 {
-                    api = new WikiAPIHelper { RequestString = flag};//url didnt work so now try it with the id of the circuit instead
+                    api = new API { RequestString = flag};//url didnt work so now try it with the id of the circuit instead
                     parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
                     imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();
                 }

@@ -17,7 +17,7 @@ namespace DataLayer.Classes.Fill_Database
         }
         public async Task<List<DriverModel>> CreateDriver()
         {
-            API api = new API { RequestString = "current/drivers" };
+            API api = new API { F1RequestString = "current/drivers" };
             JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
             List<JToken> drivers = parsed["MRData"]["DriverTable"]["Drivers"].Children().ToList();
             List<DriverModel> driverModels = new();
@@ -30,7 +30,7 @@ namespace DataLayer.Classes.Fill_Database
         }
         public async Task<List<DriverModel>> LinkDriverToConstructor(List<DriverModel> driverModels)
         {
-            API api = new API { RequestString = "current/last/results" };
+            API api = new API { F1RequestString = "current/last/results" };
             JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
             List<JToken> drivers = parsed["MRData"]["RaceTable"]["Races"][0]["Results"].Children()["Driver"].ToList();
             Console.WriteLine("");
@@ -76,7 +76,7 @@ namespace DataLayer.Classes.Fill_Database
         }
         public async Task<List<ConstructorModel>> GetConstructors()
         {
-            API api = new API { RequestString = "current/constructors" };
+            API api = new API { F1RequestString = "current/constructors" };
             JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
             List<JToken> teams = parsed["MRData"]["ConstructorTable"]["Constructors"].Children().ToList();
             List<ConstructorModel> constructorModels = new();

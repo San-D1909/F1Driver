@@ -10,13 +10,21 @@ namespace DataLayer
 {
     public class API
     {
-        readonly string baseURL = "http://ergast.com/api/f1/";
+        readonly string F1baseURL = "http://ergast.com/api/f1/";
+        public string F1RequestString
+        {
+            get { return requestString; }
+            set { requestString = F1baseURL + value + ".json?"; }
+        }
+        public string requestString = "";
+
+        readonly string baseURL = "https://en.wikipedia.org/w/api.php?action=query&titles=";
+        readonly string SecondPart = "&prop=pageimages&format=json&pithumbsize=2000";
         public string RequestString
         {
             get { return requestString; }
-            set { requestString = baseURL + value + ".json?"; }
+            set { requestString = baseURL + value + SecondPart; }
         }
-        public string requestString = "";
         public async Task<string> SelectJSONFromAPI(string requestString)
         {
             WebRequest requestObject = WebRequest.Create(requestString);
