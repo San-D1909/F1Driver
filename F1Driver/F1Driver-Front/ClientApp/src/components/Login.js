@@ -29,81 +29,78 @@ export class Login extends Component {
     setSession = (token) => {
         localStorage.setItem("loggedin", true);
         localStorage.setItem("token", token.data);
-
         this.setState({ token: token.data, loggedIn: true });
     }
 
     LoginEvent = (event) => {
-
-        const email = this.state.email
-        const password = this.state.password
-/*        console.log(email,password);
-        this.setState({ hasError: false, errorMessage: '' })
-
-        if (email === '' || email === null) {
-            this.setState({ hasError: true, errorMessage: "Field 'email' must be filled in!" })
-            return;
-        } else if (password === '' || password === null) {
-            this.setState({ hasError: true, errorMessage: "Field 'password' must be filled in!" })
-            return;
-        }*/
+        event.preventDefault();
+        var self = this;
         var user = {
             email: this.state.email,
             password: this.state.password,
         };
-        console.log(user);
-        axios({
+        this.setState({ hasError: false, errorMessage: '' })
+        if (user.email === '' || user.email === null) {
+            this.setState({ hasError: true, errorMessage: "Field 'email' must be filled in!" })
+            console.log(this.state.haserror);
+            return;
+        } else if (user.password === '' || user.password === null) {
+            this.setState({ hasError: true, errorMessage: "Field 'password' must be filled in!" })
+            return;
+        }
+        axios ({
             method: 'post',
             url: 'https://localhost:44378/UserAuth/Login/LogInFunction',
             dataType: "json",
             data: user
-        }).then(token => this.setSession(token)).catch(function (error){ })
-            console.log(this.state.token);
-        
+        }).then(token => this.setSession(token)).catch(function (error) {
+            if (error.message == "Request failed with status code 401") {
+                console.log(error.message)
+            }
+            self.setState({ hasError: true, errorMessage: "Username or Password is incorrect." })
+            return;
+        });
     }
 
     render() {
         if (localStorage.getItem("loggedin")) {
             return (
                 <Redirect to="" />
+                
             )
         }
         return (
             <>
-                <div >
-                    <div>
-                        <Card>
-                            <CardBody>
-                                <h1 className="text-center">LoginForm</h1>
-                                <div className="col-12">
-                                    <Form>
-                                        {this.state.hasError ?? (
-                                            <div className="py-2 col-12">
-                                                <Label className="alert alert-danger col-12" role="alert">{this.state.errorMessage}</Label>
-                                            </div>
-                                        )}
-                                        <div className="py-2">
-                                            <Label for="email">Email</Label>
-                                            <Input type="text" onChange={(e) => this.setState({ email: e.target.value })} name="email" />
-                                        </div>
-                                        <div className="py-2">
-                                            <Label for="password">Password</Label>
-                                            <Input type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password" />
-                                        </div>
-                                        <div className="py-2">
-                                            <Button className="my-2 mr-2 ml-0 loginbutton" onClick={(e) => this.LoginEvent(e)}>Login</Button>
-                                            <Link className="m-2 registerlink" to="/register">No account yet? Register here!</Link>
-                                        </div>
-                                    </Form>
-
-                                    <div className="forgot-password">
-                                        <Link className="m-2 passwordlink" to="/forgotpassword">Forgot your password?</Link>
+                <Card>
+                    <CardBody>
+                        <h1 className="text-center">LoginForm</h1>
+                        <div className="col-12">
+                            <Form>
+                                {this.state.hasError && (
+                                    <div className="py-2 col-12">
+                                        <Label className="alert alert-danger col-12" role="alert">{this.state.errorMessage}</Label>
                                     </div>
+                                )}
+                                <div className="py-2">
+                                    <Label for="email">Email</Label>
+                                    <Input type="text" onChange={(e) => this.setState({ email: e.target.value })} name="email" />
                                 </div>
-                            </CardBody>
-                        </Card>
-                    </div>
-                </div>
+                                <div className="py-2">
+                                    <Label for="password">Password</Label>
+                                    <Input type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password" />
+                                </div>
+                                <div className="py-2">
+                                    <Button className="my-2 mr-2 ml-0 loginbutton" onClick={(e) => this.LoginEvent(e)}>Login</Button>
+                                    <Link className="m-2 registerlink" to="/register">No account yet? Register here!</Link>
+                                </div>
+                            </Form>
+
+                            <div className="forgot-password">
+                                <Link className="m-2 passwordlink" to="/forgotpassword">Forgot your password?</Link>
+                            </div>
+                        </div>
+                    </CardBody>
+                </Card>
             </>
         );
     }

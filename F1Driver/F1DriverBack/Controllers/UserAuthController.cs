@@ -35,6 +35,7 @@ namespace F1DriverBack.Controllers
             {
                 return StatusCode(StatusCodes.Status401Unauthorized);
             }
+        
         }
     }
 }

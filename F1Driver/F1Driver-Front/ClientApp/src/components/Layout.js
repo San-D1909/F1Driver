@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 
-export class Layout extends Component {
-    static displayName = Layout.name;
-
-    /*--------------------
-    Items
-    --------------------*/
+var
     items = [
         {
             name: "Upcoming",
@@ -29,17 +24,32 @@ export class Layout extends Component {
             color: "#C80000 ",
             href: "\RaceCalendar"
         },
-        {
-            name: "Login",
-            color: "#C80000 ",
-            href: "\Login"
-        }
     ];
 
+export class Layout extends Component {
+    static displayName = Layout.name;
+
+    LogInCheck= ()=> {
+        console.log(items);
+        if (!localStorage.getItem("loggedin")) {
+            var loginItem =
+                [
+                    {
+                        name: "Login",
+                        color: "#C80000 ",
+                        href: "\Login"
+                    }
+                ]
+            items = items.concat(loginItem);
+            console.log(items);
+        }
+    }
+
     render() {
+        this.LogInCheck();
         return (
             <div>
-                <NavMenu items={this.items} />
+                <NavMenu items={items} />
                 <Container>
                     {this.props.children}
                 </Container>
@@ -47,3 +57,5 @@ export class Layout extends Component {
         );
     }
 }
+
+
