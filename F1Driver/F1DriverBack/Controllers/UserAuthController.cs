@@ -24,8 +24,8 @@ namespace F1DriverBack.Controllers
             return View();
         }
         [HttpPost("LogInFunction")]
-        public async Task<IActionResult> LogInFunction([FromQuery] UserModel credentials)
-        {
+        public async Task<IActionResult> LogIn([FromBody] UserModel credentials)
+        { 
             try
             {
                 var token = await LoginClass.Authenticate(credentials);

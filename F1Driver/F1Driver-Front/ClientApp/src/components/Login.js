@@ -47,12 +47,17 @@ export class Login extends Component {
             this.setState({ hasError: true, errorMessage: "Field 'password' must be filled in!" })
             return;
         }*/
-        console.log(email);
+        var user = {
+            email: this.state.email,
+            password: this.state.password,
+        };
+        console.log(user);
         axios({
             method: 'post',
-            url: 'http://localhost:44378/UserAuth/LogInFunction/LogInFunction',
-            data: { email, password }
-        }).then(token => this.setSession(token))
+            url: 'https://localhost:44378/UserAuth/Login/LogInFunction',
+            dataType: "json",
+            data: user
+        }).then(token => this.setSession(token)).catch(function (error){ })
             console.log(this.state.token);
         
     }
@@ -60,7 +65,7 @@ export class Login extends Component {
     render() {
         if (localStorage.getItem("loggedin")) {
             return (
-                <Redirect to="\UpcomingRace" />
+                <Redirect to="" />
             )
         }
         return (

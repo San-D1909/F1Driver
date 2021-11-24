@@ -56,13 +56,12 @@ namespace F1DriverBack
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "F1DriverBack v1"));
             }
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(builder => builder.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors(builder => builder.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {

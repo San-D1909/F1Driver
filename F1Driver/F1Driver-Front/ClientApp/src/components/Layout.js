@@ -15,12 +15,12 @@ export class Layout extends Component {
             href: "\UpcomingRace"
         },
         {
-            name: "Driver Cup",
+            name: "Drivers",
             color: "#C80000 ",
             href: "\DriverStandings"
         },
         {
-            name: "Constructor Cup",
+            name: "Constructors",
             color: "#C80000 ",
             href: "\ConstructorStandings"
         },
@@ -28,6 +28,11 @@ export class Layout extends Component {
             name: "Circuits",
             color: "#C80000 ",
             href: "\RaceCalendar"
+        },
+        {
+            name: "Login",
+            color: "#C80000 ",
+            href: "\Login"
         }
     ];
 
