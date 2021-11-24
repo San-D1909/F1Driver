@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\src\components\Class.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="ClientApp\package-lock.json" />
   </ItemGroup>
 

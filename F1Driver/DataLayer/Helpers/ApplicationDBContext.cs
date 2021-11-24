@@ -17,6 +17,7 @@ namespace DataLayer
         public DbSet<ModelLayer.CircuitModel> Circuit { get; set; }
         public DbSet<ModelLayer.DriverModel> Driver { get; set; }
         public DbSet<ModelLayer.ConstructorModel> Constructor { get; set; }
+        public DbSet<ModelLayer.UserModel> User { get; set; }
     }
 }
 

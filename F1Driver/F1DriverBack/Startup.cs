@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using MySql.EntityFrameworkCore;
 using DataLayer.Interfaces;
 using DataLayer.Classes;
+using DataLayer.Classes.RegisterAndLogin;
 
 namespace F1DriverBack
 {
@@ -43,6 +44,7 @@ namespace F1DriverBack
             services.AddScoped<IPopulateDatabase, PopulateDatabase>();
             services.AddScoped<IGetStandings, GetStandings>();
             services.AddScoped<IGetRaces, GetRaces>();
+            services.AddScoped<ILogin, Login>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +60,7 @@ namespace F1DriverBack
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors(builder => builder.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
 
