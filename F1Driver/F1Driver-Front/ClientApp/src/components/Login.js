@@ -54,10 +54,10 @@ export class Login extends Component {
             dataType: "json",
             data: user
         }).then(token => this.setSession(token)).catch(function (error) {
-            if (error.message == "Request failed with status code 401") {
+            if (error.message === "Request failed with status code 401") {
                 console.log(error.message)
             }
-            self.setState({ hasError: true, errorMessage: "Username or Password is incorrect." })
+            self.setState({ hasError: true, errorMessage: "Email or Password is incorrect." })
             return;
         });
     }

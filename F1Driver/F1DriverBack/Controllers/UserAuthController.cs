@@ -14,9 +14,11 @@ namespace F1DriverBack.Controllers
     public class UserAuthController : Controller
     {
         private readonly ILogin LoginClass;
-        public UserAuthController(ILogin _loginClass)
+        private readonly IRegister RegisterClass;
+        public UserAuthController(ILogin _loginClass, IRegister _registerClass)
         {
             LoginClass = _loginClass;
+            RegisterClass = _registerClass;
         }
         [HttpGet("Index")]
         public IActionResult Index()
@@ -25,7 +27,7 @@ namespace F1DriverBack.Controllers
         }
         [HttpPost("LogInFunction")]
         public async Task<IActionResult> LogIn([FromBody] UserModel credentials)
-        { 
+        {
             try
             {
                 var token = await LoginClass.Authenticate(credentials);
@@ -35,7 +37,21 @@ namespace F1DriverBack.Controllers
             {
                 return StatusCode(StatusCodes.Status401Unauthorized);
             }
-        
+
+        }
+        [HttpPost("RegisterFunction")]
+        public async Task<IActionResult> Register([FromBody] UserModel credentials)
+        {
+            try
+            {
+                var token = await RegisterClass.RegisterMethod(credentials);
+                return Ok(TokenClass.WriteToken(token));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized);
+            }
+
         }
     }
 }

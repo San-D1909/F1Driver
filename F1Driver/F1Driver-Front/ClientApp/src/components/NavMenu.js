@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import './NavMenu.css';
 import gsap from 'gsap';
 
@@ -52,7 +50,7 @@ export const NavMenu = ({ items }) => {
             ref={$root}
             className="menu"
         >
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" class="img-fluid" onClick={event => window.location.href = '/'}></img>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="F1Logo" className="img-fluid" onClick={event => window.location.href = '/'}></img>
             {items.map((item, index) => (
                 <a
                     key={item.name}

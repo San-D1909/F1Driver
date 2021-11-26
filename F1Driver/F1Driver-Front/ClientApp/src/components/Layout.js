@@ -7,22 +7,22 @@ var
         {
             name: "Upcoming",
             color: "#C80000 ",
-            href: "\UpcomingRace"
+            href: "UpcomingRace",
         },
         {
             name: "Drivers",
             color: "#C80000 ",
-            href: "\DriverStandings"
+            href: "DriverStandings",
         },
         {
             name: "Constructors",
             color: "#C80000 ",
-            href: "\ConstructorStandings"
+            href: "ConstructorStandings",
         },
         {
             name: "Circuits",
             color: "#C80000 ",
-            href: "\RaceCalendar"
+            href: "RaceCalendar",
         },
     ];
 
@@ -30,18 +30,16 @@ export class Layout extends Component {
     static displayName = Layout.name;
 
     LogInCheck= ()=> {
-        console.log(items);
         if (!localStorage.getItem("loggedin")) {
             var loginItem =
                 [
                     {
                         name: "Login",
                         color: "#C80000 ",
-                        href: "\Login"
+                        href: "Login",
                     }
                 ]
             items = items.concat(loginItem);
-            console.log(items);
         }
     }
 

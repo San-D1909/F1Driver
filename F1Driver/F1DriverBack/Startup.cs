@@ -45,6 +45,7 @@ namespace F1DriverBack
             services.AddScoped<IGetStandings, GetStandings>();
             services.AddScoped<IGetRaces, GetRaces>();
             services.AddScoped<ILogin, Login>();
+            services.AddScoped<IRegister, Register>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

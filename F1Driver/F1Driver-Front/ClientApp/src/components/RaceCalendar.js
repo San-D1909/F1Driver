@@ -29,7 +29,7 @@ export class RaceCalendar extends Component {
                         <div class="col-sm-4 mt-4">
                             <div class="card" style={{ backgroundColor: "white", minHeight: "520px", maxHeight: "520px", borderColor: "#FF1801" }}>
                                 <div class="card-body">
-                                    <img class="card-img-top" style={{ maxHeight: "200px" }} src={Race.imageUrl} alt="Card image cap" width="auto" height="auto" ></img>
+                                    <img class="card-img-top" style={{ maxHeight: "200px" }} src={Race.imageUrl} alt="CircuitPic" width="auto" height="auto" ></img>
                                     <h4 style={{ textAlign: "center", fontWeight: "bold" }} class="card-title">{Race.raceName}</h4>
                                     <hr class="solid"></hr>
                                     <p style={{ textAlign: "center" }} class="card-text">Date: {Race.date}</p>
@@ -37,7 +37,7 @@ export class RaceCalendar extends Component {
                                     <p style={{ textAlign: "center" }} class="card-text">Country: {Race.country}</p>
                                 </div>
                                 <div class="card-footer" style={{ backgroundColor: "darkgray", Height: "auto", maxHeight: "auto" }} >
-                                    <img src={Race.flagUrl} width="auto" Height="50px"  ></img>
+                                    <img src={Race.flagUrl} alt="FlagPic" width="auto" Height="50px"  ></img>
                                 </div>
                             </div>
                             <p><button class="buttonCard" onClick={Race.url}>Go to wiki</button></p>
