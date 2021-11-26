@@ -34,7 +34,6 @@ export class Register extends Component {
     }
 
     RegisterEvent = (event) => {
-        console.log(test)
         event.preventDefault();
         var self = this;
         var user = {
@@ -68,6 +67,12 @@ export class Register extends Component {
         });
     }
     render() {
+        if (localStorage.getItem("loggedin")) {
+            return (
+                <Redirect to="" />
+
+            )
+        }
         return (
             <Card>
                 <CardBody>

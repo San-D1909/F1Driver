@@ -7,6 +7,7 @@ import { ConstructorStandings } from './components/ConstructorStandings';
 import { RaceCalendar } from './components/RaceCalendar';
 import { UpcomingRace } from './components/UpcomingRace';
 import { Login } from './components/Login';
+import { Register } from './components/Register';
 
 import './custom.css'
 
@@ -24,6 +25,7 @@ export default class App extends Component {
                 <Route exact path='/RaceCalendar' component={RaceCalendar} />
                 <Route exact path='/UpcomingRace' component={UpcomingRace} />
                 <Route exact path='/Login' component={Login} />
+                <Route exact path='/Register' component={Register} />
             </Layout>
         );
     }
