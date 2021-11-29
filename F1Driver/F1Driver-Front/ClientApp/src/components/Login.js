@@ -63,10 +63,9 @@ export class Login extends Component {
     }
 
     render() {
-        if (localStorage.getItem("loggedin")) {
+        if (localStorage.getItem("token")) {
             return (
-                <Redirect to="" />
-                
+                <Redirect to=""/>               
             )
         }
         return (

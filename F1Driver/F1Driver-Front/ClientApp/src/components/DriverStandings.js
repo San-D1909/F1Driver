@@ -1,18 +1,11 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
 
-
-
 export class DriverStandings extends Component {
     static displayName = DriverStandings;
 
-
-
     constructor(props) {
         super(props);
-
-
-
         this.state = {
             standings: [],
             loading: true
@@ -22,14 +15,12 @@ export class DriverStandings extends Component {
         this.populateData();
     }
 
-
-
     static renderTable(DriverStandings) {
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <tbody>
                     {DriverStandings.map(standing =>
-                        <tr key={standing.Position}>
+                        <tr key={standing.driver.givenName}>
                             <td style={{ color: 'white' }}>position: {standing.position}</td>
                             <td style={{ color: 'white' }}>DriverID: {standing.driver.givenName} {standing.driver.familyName}</td>
                             <td style={{ color: 'white' }}>Image: <img src={standing.driver.imageUrl} alt="DriverPic" width="auto" height="170"></img></td>
@@ -68,7 +59,6 @@ export class DriverStandings extends Component {
             method: 'get',
             url: 'https://localhost:44378/DriverStandings/SendDriverStandings/DriverStandings'
         }).then(function (data) {
-            console.log(data.data);
             self.setState({ standings: data.data, loading: false });
         }
         );

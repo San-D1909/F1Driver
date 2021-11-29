@@ -21,23 +21,23 @@ export class UpcomingRace extends Component {
 
     static render(UpcomingRace) {
         return (
-            <div class="row" >
+            <div className="row" >
                 {UpcomingRace.map(Race =>
-                    <div class="col-sm-4 mt-4">
-                        <div class="card" style={{ backgroundColor: "white", minHeight: "520px", maxHeight: "520px", borderColor: "#FF1801" }}>
+                    <div key={Race.round} className="col-sm-4 mt-4">
+                        <div className="card" style={{ backgroundColor: "white", minHeight: "520px", maxHeight: "520px", borderColor: "#FF1801" }}>
                             <div class="card-body">
-                                <img class="card-img-top" style={{ maxHeight: "200px" }} src={Race.imageUrl} alt="CircuitPic" width="auto" height="auto" ></img>
-                                <h4 style={{ textAlign: "center", fontWeight: "bold" }} class="card-title">{Race.raceName}</h4>
-                                <hr class="solid"></hr>
-                                <p property="date" style={{ textAlign: "center" }} class="card-text">Date: {Race.date}</p>
-                                <p property="round" style={{ textAlign: "center" }} class="card-text">Round: {Race.round}</p>
-                                <p property="country" style={{ textAlign: "center" }} class="card-text">Country: {Race.country}</p>
+                                <img className="card-img-top" style={{ maxHeight: "200px" }} src={Race.imageUrl} alt="CircuitPic" width="auto" height="auto" ></img>
+                                <h4 style={{ textAlign: "center", fontWeight: "bold" }} className="card-title">{Race.raceName}</h4>
+                                <hr className="solid"></hr>
+                                <p property="date" style={{ textAlign: "center" }} className="card-text">Date: {Race.date}</p>
+                                <p property="round" style={{ textAlign: "center" }} className="card-text">Round: {Race.round}</p>
+                                <p property="country" style={{ textAlign: "center" }} className="card-text">Country: {Race.country}</p>
                             </div>
-                            <div class="card-footer" style={{ backgroundColor: "darkgray", Height: "auto", maxHeight: "auto" }} >
+                            <div className="card-footer" style={{ backgroundColor: "darkgray", height: "auto", maxHeight: "auto" }} >
                                 <img src={Race.flagUrl} alt="FlagPic" width="auto" Height="50px"  ></img>
                             </div>
                         </div>
-                        <p><a class="buttonCard" href={Race.url}>Go to wiki</a></p>
+                        <p><a className="buttonCard" href={Race.url}>Go to wiki</a></p>
                     </div>
                 )}
             </div>
@@ -55,7 +55,6 @@ export class UpcomingRace extends Component {
 
         return (
             <div>
-
                 {contents}
             </div>
         )
