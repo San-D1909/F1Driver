@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using DataLayer.Classes;
 using DataLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,14 +13,15 @@ using System.Threading.Tasks;
 
 namespace F1DriverBack.Services
 {
-    public class UpdateDatabase : IDisposable, IHostedService
+    public class UpdateDatabaseOnTimer : IDisposable, IHostedService
     {
-        private readonly IPopulateDatabase _populateDatabase;
         private Timer _timer;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public UpdateDatabase( IPopulateDatabase populateDatabase)
+
+        public UpdateDatabaseOnTimer(IServiceScopeFactory scopeFactory)
         {
-            _populateDatabase = populateDatabase;
+            _scopeFactory = scopeFactory;
         }
 
         public void Dispose()
@@ -29,7 +31,7 @@ namespace F1DriverBack.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(Populate, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+            _timer = new Timer(Populate, null, TimeSpan.Zero, TimeSpan.FromSeconds(60));
             return Task.CompletedTask;
         }
         public Task StopAsync(CancellationToken cancellationToken)
@@ -39,7 +41,12 @@ namespace F1DriverBack.Services
         }
         private async void Populate(object state)
         {
-            await _populateDatabase.Populate();
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                IPopulateDatabase populateClass = new PopulateDatabase(context);
+                await populateClass.Populate();
+            }
             Console.WriteLine("test");
 
         }

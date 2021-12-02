@@ -48,7 +48,7 @@ export class Login extends Component {
             this.setState({ hasError: true, errorMessage: "Field 'password' must be filled in!" })
             return;
         }
-        axios ({
+        axios({
             method: 'post',
             url: 'https://localhost:44378/UserAuth/Login/LogInFunction',
             dataType: "json",
@@ -65,8 +65,8 @@ export class Login extends Component {
     render() {
         if (localStorage.getItem("token")) {
             return (
-                <Redirect to=""/>               
-            )
+            window.location.assign("")
+                )
         }
         return (
             <>

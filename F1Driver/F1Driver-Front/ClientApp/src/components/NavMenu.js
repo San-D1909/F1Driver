@@ -68,10 +68,6 @@ export const NavMenu = ({ items }) => {
                 ref={$indicator1}
                 className="indicator"
             />
-            <div
-                ref={$indicator2}
-                className="indicator"
-            />
         </div>
     )
 }
