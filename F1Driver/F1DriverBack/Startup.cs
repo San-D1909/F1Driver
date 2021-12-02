@@ -16,6 +16,7 @@ using MySql.EntityFrameworkCore;
 using DataLayer.Interfaces;
 using DataLayer.Classes;
 using DataLayer.Classes.RegisterAndLogin;
+using F1DriverBack.Services;
 
 namespace F1DriverBack
 {
@@ -41,7 +42,8 @@ namespace F1DriverBack
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "F1DriverBack", Version = "v1" });
             });
             services.AddDbContext<DataLayer.ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
-            services.AddScoped<IPopulateDatabase, PopulateDatabase>();
+            services.AddTransient<IPopulateDatabase, PopulateDatabase>();
+            /*services.AddHostedService<UpdateDatabase>();*/
             services.AddScoped<IGetStandings, GetStandings>();
             services.AddScoped<IGetRaces, GetRaces>();
             services.AddScoped<ILogin, Login>();

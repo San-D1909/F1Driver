@@ -13,6 +13,7 @@ namespace F1DriverBack
     {
         public static void Main(string[] args)
         {
+            
             CreateHostBuilder(args).Build().Run();
         }
 

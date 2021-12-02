@@ -18,11 +18,11 @@ namespace F1DriverBack.Controllers
         {
             DriverClass = driverClass;
         }
-        [HttpGet]
+/*        [HttpGet]
         public async Task<IActionResult> PopulateDb()
         {
             await DriverClass.Populate();
             return Ok();
-        }
+        }*/
     }
 }
