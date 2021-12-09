@@ -30,7 +30,7 @@ export class Layout extends Component {
     static displayName = Layout.name;
 
     LogInCheck= ()=> {
-        if (!localStorage.getItem("loggedin")) {
+        if (!localStorage.getItem("token")) {
             var loginItem =
                 [
                     {
@@ -40,6 +40,26 @@ export class Layout extends Component {
                     }
                 ]
             items = items.concat(loginItem);
+        }
+        else {
+            var logoutItem =
+                [
+                    {
+                        name: "Logout",
+                        color: "#C80000 ",
+                        href: "Logout",
+                    }
+                ]
+            var groupItem =
+                [
+                    {
+                        name: "Groups",
+                        color: "#C80000 ",
+                        href: "Group",
+                    }
+                ]
+            items = items.concat(groupItem);
+            items = items.concat(logoutItem);
         }
     }
 

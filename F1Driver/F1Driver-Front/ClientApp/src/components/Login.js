@@ -27,7 +27,6 @@ export class Login extends Component {
     }
 
     setSession = (token) => {
-        localStorage.setItem("loggedin", true);
         localStorage.setItem("token", token.data);
         this.setState({ token: token.data, loggedIn: true });
     }

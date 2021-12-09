@@ -44,7 +44,8 @@ namespace F1DriverBack
             services.AddDbContext<DataLayer.ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddTransient<IPopulateDatabase, PopulateDatabase>();
             services.AddHostedService<UpdateDatabaseOnTimer>();
-            services.AddScoped<IGetStandings, GetStandings>();
+            services.AddScoped<IGetStandings, GetStandings>(); 
+            services.AddScoped<IConvertTokens, ConvertTokens>();
             services.AddScoped<IGetRaces, GetRaces>();
             services.AddScoped<ILogin, Login>();
             services.AddScoped<IRegister, Register>();

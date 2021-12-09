@@ -15,15 +15,12 @@ namespace F1DriverBack.Controllers
     {
         private readonly ILogin LoginClass;
         private readonly IRegister RegisterClass;
-        public UserAuthController(ILogin _loginClass, IRegister _registerClass)
+        private readonly IConvertTokens _convertTokens;
+        public UserAuthController(ILogin _loginClass, IRegister _registerClass,IConvertTokens convertTokens)
         {
             LoginClass = _loginClass;
             RegisterClass = _registerClass;
-        }
-        [HttpGet("Index")]
-        public IActionResult Index()
-        {
-            return View();
+            _convertTokens = convertTokens;
         }
         [HttpPost("LogInFunction")]
         public async Task<IActionResult> LogIn([FromBody] UserModel credentials)
@@ -52,6 +49,11 @@ namespace F1DriverBack.Controllers
                 return StatusCode(StatusCodes.Status401Unauthorized);
             }
 
+        }
+        [HttpGet("GetUserByToken")]
+        public async Task<ActionResult> GetUserByToken([FromQuery] string jtoken)
+        {//Gets the user  by the token from the front end.
+            return Ok(await _convertTokens.TokenConverterMethod(jtoken));
         }
     }
 }

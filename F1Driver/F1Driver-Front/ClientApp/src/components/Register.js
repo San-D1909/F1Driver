@@ -28,7 +28,6 @@ export class Register extends Component {
     }
 
     setSession = (token) => {
-        localStorage.setItem("loggedin", true);
         localStorage.setItem("token", token.data);
         this.setState({ token: token.data, loggedIn: true });
     }
@@ -62,12 +61,12 @@ export class Register extends Component {
             if (error.message == "Request failed with status code 401") {
                 console.log(error.message)
             }
-            self.setState({ hasError: true, errorMessage: "Username or Password is incorrect." })
+            self.setState({ hasError: true, errorMessage: "Username or Password is incorrect. Password must contain the following Special symbol, a number, a uppercase and lowercase and must be atleast 5 characters long! " })
             return;
         });
     }
     render() {
-        if (localStorage.getItem("loggedin")) {
+        if (localStorage.getItem("token")) {
             return (
                 <Redirect to="" />
 

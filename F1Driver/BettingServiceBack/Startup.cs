@@ -1,6 +1,5 @@
-using DataLayer.Classes;
-using DataLayer.Classes.RegisterAndLogin;
-using DataLayer.Interfaces;
+using BettingServiceDataLayer.Classes;
+using BettingServiceDataLayer.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BettingServiceBack
+namespace BettingServiceDataLayer
 {
     public class Startup
     {
@@ -39,12 +38,8 @@ namespace BettingServiceBack
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BettingServiceBack", Version = "v1" });
             });
-            services.AddDbContext<DataLayer.ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
-            services.AddTransient<IPopulateDatabase, PopulateDatabase>();
-            services.AddScoped<IGetStandings, GetStandings>();
-            services.AddScoped<IGetRaces, GetRaces>();
-            services.AddScoped<ILogin, Login>();
-            services.AddScoped<IRegister, Register>();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
+            services.AddScoped<IGroup, GroupClass>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
