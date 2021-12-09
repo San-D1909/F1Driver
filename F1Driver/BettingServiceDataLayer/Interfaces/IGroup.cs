@@ -10,7 +10,7 @@ namespace BettingServiceDataLayer.Interfaces
 {
     public interface IGroup
     {
-        public Task<bool> CreateFriendGroup(FriendGroupModel friendGroupModel);
+        public Task<FriendGroupModel> CreateFriendGroup(FriendGroupModel friendGroupModel);
         public Task<bool> AddToGroup(UserAndGroupDTO userAndGroupDTO);
         public Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO);
     }

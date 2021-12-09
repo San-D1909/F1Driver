@@ -20,19 +20,18 @@ namespace BettingServiceDataLayer.Classes
 
         public async Task<bool> AddToGroup(UserAndGroupDTO userAndGroupDTO)
         {
+            userAndGroupDTO.User.FriendGroup = userAndGroupDTO.FriendGroup.ID;
             UserModel userModel = await _context.User.Where(x => x.ID == userAndGroupDTO.User.ID).FirstOrDefaultAsync();
             _context.User.Update(userModel).CurrentValues.SetValues(userAndGroupDTO.User);
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> CreateFriendGroup(FriendGroupModel friendGroupModel)
+        public async Task<FriendGroupModel> CreateFriendGroup(FriendGroupModel friendGroupModel)
         {
-            if (_context.FriendGroup.Add(friendGroupModel).IsKeySet)
-            {
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            return false;
+            _context.FriendGroup.Add(friendGroupModel);
+            await _context.SaveChangesAsync();
+            return friendGroupModel;
         }
 
         public Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO)

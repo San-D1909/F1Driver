@@ -15,10 +15,8 @@ namespace ModelLayer
         public string Email { get; set; }
         public string Password { get; set; }
         public string UserName { get; set; }
-        [NotMapped]
-        public int FriendGroup { get; set; }
-        [NotMapped]
-        public int BettingScore { get; set; }
+        public int? FriendGroup { get; set; }
+        public int? BettingScore { get; set; }
 
     }
 }

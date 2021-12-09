@@ -51,9 +51,9 @@ namespace F1DriverBack.Controllers
 
         }
         [HttpGet("GetUserByToken")]
-        public async Task<ActionResult> GetUserByToken([FromQuery] string jtoken)
+        public async Task<ActionResult> GetUserByToken([FromQuery] string token)
         {//Gets the user  by the token from the front end.
-            return Ok(await _convertTokens.TokenConverterMethod(jtoken));
+            return Ok(await _convertTokens.TokenConverterMethod(token));
         }
     }
 }
