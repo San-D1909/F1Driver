@@ -65,8 +65,8 @@ export class Login extends Component {
     render() {
         if (localStorage.getItem("token")) {
             return (
-            window.location.assign("")
-                )
+                window.location.assign("")
+            )
         }
         return (
             <>
