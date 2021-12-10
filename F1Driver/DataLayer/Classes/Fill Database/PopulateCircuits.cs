@@ -23,7 +23,7 @@ namespace DataLayer.Classes.Fill_Database
             List<CircuitModel> circuitModels = new();
             foreach (JToken circuit in circuits)
             {
-                CircuitModel circuitModel = circuit.ToObject<CircuitModel>();                
+                CircuitModel circuitModel = circuit.ToObject<CircuitModel>();
                 circuitModel.Long = (float)circuit.SelectToken("Location.long");
                 circuitModel.Lat = (float)circuit.SelectToken("Location.lat");
                 circuitModel.Country = (string)circuit.SelectToken("Location.country");
