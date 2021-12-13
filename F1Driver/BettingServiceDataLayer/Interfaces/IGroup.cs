@@ -12,6 +12,7 @@ namespace BettingServiceDataLayer.Interfaces
     {
         public Task<FriendGroupModel> CreateFriendGroup(FriendGroupModel friendGroupModel);
         public Task<bool> AddToGroup(UserAndGroupDTO userAndGroupDTO);
+        public Task<bool> JoinGroup(UserAndGroupDTO userAndGroupDTO);
         public Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO);
     }
 }

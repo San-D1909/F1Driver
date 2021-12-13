@@ -50,6 +50,29 @@ export class Group extends Component {
         });
     }
 
+    JoinGroup = (event) => {
+        var self = this;
+        var userAndGroupDTO = {
+            User: this.state.user,
+            FriendGroup: null,
+            searchString: this.state.searchString,
+        }
+        axios({
+            method: 'POST',
+            url: 'http://localhost:5001/Group/JoinGroup/JoinGroup',
+            dataType: "json",
+            data: userAndGroupDTO,
+        }).then(function (data) {
+
+            if (data.data == false) {
+                self.setState({ message: 'Inviting the user failed'});
+            }
+            else {
+                self.setState({ message: 'User invited'});
+            }
+        });
+    }
+
     InviteToGroup = (event) => {
         var self = this;
         var userAndGroupDTO = {
@@ -63,18 +86,38 @@ export class Group extends Component {
             dataType: "json",
             data: userAndGroupDTO,
         }).then(function (data) {
-
             if (data.data == false) {
-                self.setState({ message: 'Inviting the user failed', error: true });
+                self.setState({ message: 'Inviting the user failed'});
             }
             else {
-                self.setState({ message: 'User invited', error: false });
+                self.setState({ message: 'User invited'});
+            }
+        });
+    }
+
+    InviteToGroup = (event) => {
+        var self = this;
+        var userAndGroupDTO = {
+            User: this.state.user,
+            FriendGroup: null,
+            searchString: this.state.searchString,
+        }
+        axios({
+            method: 'get',
+            url: 'http://localhost:5001/Group/InviteToGroup/InviteToGroup',
+            dataType: "json",
+            data: userAndGroupDTO,
+        }).then(function (data) {
+            if (data.data == false) {
+                self.setState({ message: 'Inviting the user failed' });
+            }
+            else {
+                self.setState({ message: 'User invited' });
             }
         });
     }
 
     createGroup = async () => {
-        var self = this;
         var FriendGroup = {
             GroupName: this.state.groupName,
         }
@@ -98,9 +141,14 @@ export class Group extends Component {
     }
 
     render() {
-        if (this.state.friendGroup != 0) {
+        if (this.state.user.friendGroup == 0 || this.state.user.friendGroup == null) {
             return (
                 <Card>
+                    {this.state.message.length !== 0 &&
+                        <div className="alert alert-warning" >
+                            <strong>{this.state.message}</strong>
+                        </div>
+                    }
                     <CardBody>
                         <h1 className="text-center">Create a group</h1>
                         <div className="col-12">
@@ -123,7 +171,6 @@ export class Group extends Component {
                 return (
                     <body>
                         {this.state.message.length !== 0 &&
-                            this.state.error &&
                             < div className="alert alert-warning" >
                                 <strong>{this.state.message}</strong>
                             </div >

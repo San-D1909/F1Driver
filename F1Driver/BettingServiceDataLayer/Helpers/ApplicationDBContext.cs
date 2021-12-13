@@ -13,6 +13,7 @@ namespace BettingServiceDataLayer
         {
         }
         public DbSet<ModelLayer.RaceModel> Race { get; set; }
+        public DbSet<ModelLayer.NotificationModel> Notification { get; set; }
         public DbSet<ModelLayer.RaceResultModel> RaceResult { get; set; }
         public DbSet<ModelLayer.CircuitModel> Circuit { get; set; }
         public DbSet<ModelLayer.DriverModel> Driver { get; set; }

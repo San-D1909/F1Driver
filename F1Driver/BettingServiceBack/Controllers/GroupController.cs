@@ -25,9 +25,10 @@ namespace BettingServiceDataLayer.Controllers
             return Ok();
         }
         [HttpPost("JoinGroup")]
-        public async Task<IActionResult> JoinGroup()
+        public async Task<IActionResult> JoinGroup([FromBody] UserAndGroupDTO userAndGroupDTO)
         {
-            return null;
+            bool worked = await FriendGroup.JoinGroup(userAndGroupDTO);
+            return Ok(worked);
         }
         [HttpPost("InviteToGroup")]
         public async Task<IActionResult> InviteToGroup([FromBody] UserAndGroupDTO userAndGroupDTO)

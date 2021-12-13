@@ -34,12 +34,12 @@ namespace BettingServiceDataLayer.Classes
             return friendGroupModel;
         }
 
-        public async Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO)
+        public async Task<bool> JoinGroup(UserAndGroupDTO userAndGroupDTO)
         {
             try
             {
                 UserModel user = await _context.User.Where(user => user.Email == userAndGroupDTO.searchString).FirstOrDefaultAsync();
-                if(user == null)
+                if (user == null)
                 {
                     return false;
                 }
@@ -49,13 +49,31 @@ namespace BettingServiceDataLayer.Classes
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 return false;
 
             }
 
+        }
+
+        public async Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO)
+        {
+            try
+            {
+                UserModel user = await _context.User.Where(user => user.Email == userAndGroupDTO.searchString).FirstOrDefaultAsync();
+                NotificationModel notification = new NotificationModel {Notification= "Group "+userAndGroupDTO.User.FriendGroup+" has invited you to their group", NotificationType=1,User_Id = user.ID};
+                _context.Notification.Add(notification);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+
+            }
         }
     }
 }
