@@ -64,7 +64,7 @@ export class UpcomingRace extends Component {
         var self = this;
         axios({
             method: 'get',
-            url: 'https://localhost:44378/Races/SendUpcomingRace/UpcomingRace'
+            url: 'http://localhost:5000/Races/SendUpcomingRace/UpcomingRace'
         }).then(function (data) {
             console.log(data.data);
             self.setState({ Race: data.data, loading: false });

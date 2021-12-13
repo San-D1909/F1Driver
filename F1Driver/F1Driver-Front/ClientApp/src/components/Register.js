@@ -54,7 +54,7 @@ export class Register extends Component {
         }
         axios({
             method: 'post',
-            url: 'https://localhost:44378/UserAuth/Register/RegisterFunction',
+            url: 'http://localhost:5000/UserAuth/Register/RegisterFunction',
             dataType: "json",
             data: user
         }).then(token => this.setSession(token)).catch(function (error) {

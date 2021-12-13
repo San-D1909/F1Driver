@@ -70,7 +70,7 @@ export class RaceCalendar extends Component {
         var self = this;
         axios({
             method: 'get',
-            url: 'https://localhost:44378/Races/SendRaces/SeasonsRaces'
+            url:'http://localhost:5000/Races/SendRaces/SeasonsRaces'
         }).then(function (data) {
             console.log(data.data);
             self.setState({ Races: data.data, loading: false });

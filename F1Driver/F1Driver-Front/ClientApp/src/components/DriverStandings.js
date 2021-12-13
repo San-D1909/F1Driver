@@ -57,7 +57,7 @@ export class DriverStandings extends Component {
         var self = this;
         axios({
             method: 'get',
-            url: 'https://localhost:44378/DriverStandings/SendDriverStandings/DriverStandings'
+            url: 'http://localhost:5000/DriverStandings/SendDriverStandings/DriverStandings'
         }).then(function (data) {
             self.setState({ standings: data.data, loading: false });
         }

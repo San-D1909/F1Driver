@@ -37,7 +37,7 @@ export class Group extends Component {
         var self = this;
         axios({
             method: 'GET',
-            url: 'https://localhost:5000/UserAuth/GetUserByToken/GetUserByToken',
+            url: 'http://localhost:5000/UserAuth/GetUserByToken/GetUserByToken',
             params: {
                 token: localStorage.getItem("token"),
             }
@@ -59,7 +59,7 @@ export class Group extends Component {
         }
         axios({
             method: 'POST',
-            url: 'https://localhost:5001/Group/InviteToGroup/InviteToGroup',
+            url: 'http://localhost:5001/Group/InviteToGroup/InviteToGroup',
             dataType: "json",
             data: userAndGroupDTO,
         }).then(function (data) {
@@ -85,7 +85,7 @@ export class Group extends Component {
         console.log(userAndGroupDTO)
         axios({
             method: 'POST',
-            url: 'https://localhost:5001/Group/CreateGroup/CreateGroup',
+            url: 'http://localhost:5001/Group/CreateGroup/CreateGroup',
             dataType: "json",
             data: userAndGroupDTO,
         }).then(function (data) {
@@ -98,7 +98,7 @@ export class Group extends Component {
     }
 
     render() {
-        if (this.state.noGroup == true) {
+        if (this.state.friendGroup != 0) {
             return (
                 <Card>
                     <CardBody>
@@ -120,54 +120,14 @@ export class Group extends Component {
         }
         else {
             if (this.state.invite) {
-                {
-                    if (this.state.message.length !== 0) {
-                        if (this.state.error) {
-                            return (
-                                <body>
-                                    < div className="alert alert-warning" >
-                                        <strong>ERROR! </strong>{this.state.message}
-                                    </div >
-                                    <div>
-                                        <h1 style={{ color: "white" }}>Invite a friend by email</h1>
-                                        <button onClick={this.changePage}>Back to group</button>
-                                    </div>
-                                    <Card>
-                                        <CardBody>
-                                            <div >
-                                                <input onChange={(e) => this.setState({ searchString: e.target.value })} placeholder="Insert an emailadress"></input>
-                                                <button onClick={this.InviteToGroup}>Invite</button>
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </body>
-                            );
-                        }
-                        else {
-                            return (
-                                <body>
-                                    <div className="alert alert-success" >
-                                        <strong>Succes! </strong>{this.state.message}
-                                    </div>
-                                    <div>
-                                        <h1 style={{ color: "white" }}>Invite a friend by email</h1>
-                                        <button onClick={this.changePage}>Back to group</button>
-                                    </div>
-                                    <Card>
-                                        <CardBody>
-                                            <div >
-                                                <input onChange={(e) => this.setState({ searchString: e.target.value })} placeholder="Insert an emailadress"></input>
-                                                <button onClick={this.InviteToGroup}>Invite</button>
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </body>
-                            );
-                        }
-                    }
-                }
                 return (
                     <body>
+                        {this.state.message.length !== 0 &&
+                            this.state.error &&
+                            < div className="alert alert-warning" >
+                                <strong>{this.state.message}</strong>
+                            </div >
+                        }
                         <div>
                             <h1 style={{ color: "white" }}>Invite a friend by email</h1>
                             <button onClick={this.changePage}>Back to group</button>
@@ -189,7 +149,7 @@ export class Group extends Component {
                         <h1 style={{ color: "white" }}>Welcome to your group</h1>
                         <button onClick={this.changePage}>Inivite friends</button>
                     </div>
-                </body>
+                </body >
             );
         }
     }

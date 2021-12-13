@@ -25,6 +25,8 @@ export class Login extends Component {
         }
         this.LoginEvent = this.LoginEvent.bind(this)
     }
+    componentDidMount() {
+    }
 
     setSession = (token) => {
         localStorage.setItem("token", token.data);
@@ -49,7 +51,7 @@ export class Login extends Component {
         }
         axios({
             method: 'post',
-            url: 'https://localhost:44378/UserAuth/Login/LogInFunction',
+            url: 'http://localhost:5000/UserAuth/Login/LogInFunction',
             dataType: "json",
             data: user
         }).then(token => this.setSession(token)).catch(function (error) {
