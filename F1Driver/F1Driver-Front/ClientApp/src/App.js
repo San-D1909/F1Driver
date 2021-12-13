@@ -9,7 +9,6 @@ import { UpcomingRace } from './components/UpcomingRace';
 import { Login } from './components/Login';
 import { Logout } from './components/Logout';
 import { Register } from './components/Register';
-import { CreateGroup } from './components/FriendGroup/CreateGroup';
 import { Group } from './components/FriendGroup/Group';
 
 
@@ -31,7 +30,6 @@ export default class App extends Component {
                 <Route exact path='/Login' component={Login} />
                 <Route exact path='/Register' component={Register} />
                 <Route exact path='/Logout' component={Logout} />
-                <Route exact path='/CreateGroup' component={CreateGroup} />
                 <Route exact path='/Group' component={Group} />
             </Layout>
         );

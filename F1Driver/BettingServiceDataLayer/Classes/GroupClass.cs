@@ -34,9 +34,28 @@ namespace BettingServiceDataLayer.Classes
             return friendGroupModel;
         }
 
-        public Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO)
+        public async Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                UserModel user = await _context.User.Where(user => user.Email == userAndGroupDTO.searchString).FirstOrDefaultAsync();
+                if(user == null)
+                {
+                    return false;
+                }
+                UserModel newUser = user;
+                newUser.FriendGroup = userAndGroupDTO.User.FriendGroup;
+                _context.User.Update(user).CurrentValues.SetValues(user);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+
+            }
+
         }
     }
 }

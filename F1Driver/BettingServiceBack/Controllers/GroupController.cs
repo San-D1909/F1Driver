@@ -24,10 +24,16 @@ namespace BettingServiceDataLayer.Controllers
             bool added = await FriendGroup.AddToGroup(userAndGroupDTO);
             return Ok();
         }
-        [HttpGet("InviteToGroup")]
-        public async Task<IActionResult> InviteToGroup()
+        [HttpPost("JoinGroup")]
+        public async Task<IActionResult> JoinGroup()
         {
             return null;
+        }
+        [HttpPost("InviteToGroup")]
+        public async Task<IActionResult> InviteToGroup([FromBody] UserAndGroupDTO userAndGroupDTO)
+        {
+            bool worked = await FriendGroup.SendGroupInvite(userAndGroupDTO);
+            return Ok(worked);
         }
         [HttpPost("GetGroupDetails")]
         public async Task<IActionResult> GetGroupDetails([FromBody] UserModel user)

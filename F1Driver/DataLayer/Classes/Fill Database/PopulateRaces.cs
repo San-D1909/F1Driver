@@ -19,7 +19,7 @@ namespace DataLayer.Classes.Fill_Database
         {
             List<RaceModel> rounds = await GetAllRounds();
             List<RaceResultModel> results = new();
-            for (int i = 0; i <= rounds.Count(); i++)
+            for (int i = 0; i < rounds.Count(); i++)
             {
                 if (rounds[i].Date > DateTime.Now)
                 {

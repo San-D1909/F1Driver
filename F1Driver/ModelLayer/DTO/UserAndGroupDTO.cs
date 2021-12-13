@@ -9,5 +9,6 @@ namespace ModelLayer.DTO
     {
         public UserModel User { get; set; }
         public FriendGroupModel FriendGroup { get; set; }
+        public string searchString { get; set; }
     }
 }
