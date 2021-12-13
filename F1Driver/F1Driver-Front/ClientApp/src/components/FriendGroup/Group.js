@@ -37,7 +37,7 @@ export class Group extends Component {
         var self = this;
         axios({
             method: 'GET',
-            url: 'https://localhost:44378/UserAuth/GetUserByToken/GetUserByToken',
+            url: 'https://localhost:5000/UserAuth/GetUserByToken/GetUserByToken',
             params: {
                 token: localStorage.getItem("token"),
             }
@@ -59,7 +59,7 @@ export class Group extends Component {
         }
         axios({
             method: 'POST',
-            url: 'https://localhost:44322/Group/InviteToGroup/InviteToGroup',
+            url: 'https://localhost:5001/Group/InviteToGroup/InviteToGroup',
             dataType: "json",
             data: userAndGroupDTO,
         }).then(function (data) {
@@ -85,7 +85,7 @@ export class Group extends Component {
         console.log(userAndGroupDTO)
         axios({
             method: 'POST',
-            url: 'https://localhost:44322/Group/CreateGroup/CreateGroup',
+            url: 'https://localhost:5001/Group/CreateGroup/CreateGroup',
             dataType: "json",
             data: userAndGroupDTO,
         }).then(function (data) {
