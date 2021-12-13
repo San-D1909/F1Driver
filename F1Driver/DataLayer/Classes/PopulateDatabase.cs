@@ -22,7 +22,7 @@ namespace DataLayer.Classes
         }
         public async Task<bool> Populate()
         {//Method that calls all the classes to fill the database
-                await ClearYear();
+            await ClearYear();
             PopulateDriversAndTeams getDriverData = new(_context);
             PopulateCircuits getCircuitData = new(_context);
             PopulateRaces getRaceData = new(_context);
@@ -43,8 +43,9 @@ namespace DataLayer.Classes
         public async Task<bool> ClearYear()
         {//drops all drivers so old ones dont stay in the system
             int date = DateTime.Now.Year;
+            List<DriverModel> drivers = _context.Driver.ToList();
             List<RaceModel> races = await _context.Race.Where(race => race.Season != date).ToListAsync();
-            if (races.Count!=0)
+            if (races.Count != 0)
             {
                 await _context.Driver.FromSqlRaw("TRUNCATE driver").ToListAsync();
                 await _context.Circuit.FromSqlRaw("TRUNCATE circuit").ToListAsync();

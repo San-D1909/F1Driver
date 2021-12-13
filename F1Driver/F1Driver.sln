@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F1DriverBack", "F1DriverBac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BettingServiceBack", "BettingServiceBack\BettingServiceBack.csproj", "{D1C6676E-3EA1-45BA-B981-471448A2DFA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BettingServiceDataLayer", "BettingServiceDataLayer\BettingServiceDataLayer.csproj", "{5A92EA99-4B9D-4C4B-9797-CDF29ECD38B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BettingServiceDataLayer", "BettingServiceDataLayer\BettingServiceDataLayer.csproj", "{5A92EA99-4B9D-4C4B-9797-CDF29ECD38B2}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{5A92EA99-4B9D-4C4B-9797-CDF29ECD38B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A92EA99-4B9D-4C4B-9797-CDF29ECD38B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A92EA99-4B9D-4C4B-9797-CDF29ECD38B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

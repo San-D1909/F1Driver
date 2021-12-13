@@ -167,20 +167,20 @@ export class Group extends Component {
                     }
                 }
                 return (
-                        <body>
-                            <div>
-                                <h1 style={{ color: "white" }}>Invite a friend by email</h1>
-                                <button onClick={this.changePage}>Back to group</button>
-                            </div>
-                            <Card>
-                                <CardBody>
-                                    <div >
-                                        <input onChange={(e) => this.setState({ searchString: e.target.value })} placeholder="Insert an emailadress"></input>
-                                        <button onClick={this.InviteToGroup}>Invite</button>
-                                    </div>
-                                </CardBody>
-                            </Card>
-                        </body>
+                    <body>
+                        <div>
+                            <h1 style={{ color: "white" }}>Invite a friend by email</h1>
+                            <button onClick={this.changePage}>Back to group</button>
+                        </div>
+                        <Card>
+                            <CardBody>
+                                <div >
+                                    <input onChange={(e) => this.setState({ searchString: e.target.value })} placeholder="Insert an emailadress"></input>
+                                    <button onClick={this.InviteToGroup}>Invite</button>
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </body>
                 );
             }
             return (
