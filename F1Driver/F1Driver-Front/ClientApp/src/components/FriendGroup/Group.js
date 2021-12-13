@@ -30,6 +30,7 @@ export class Group extends Component {
             )
         }
         this.GetUser();
+        this.GetNotifications();
     }
 
 
@@ -95,18 +96,15 @@ export class Group extends Component {
         });
     }
 
-    InviteToGroup = (event) => {
-        var self = this;
-        var userAndGroupDTO = {
-            User: this.state.user,
-            FriendGroup: null,
-            searchString: this.state.searchString,
-        }
+    GetNotifications = (event) => {
         axios({
             method: 'get',
-            url: 'http://localhost:5001/Group/InviteToGroup/InviteToGroup',
+            url: 'http://localhost:5001/Group/GetNotifications/GetNotifications',
             dataType: "json",
-            data: userAndGroupDTO,
+            params: {
+                notificationType: "Group_inv",
+                userID: this.state.user.ID
+            }
         }).then(function (data) {
             if (data.data == false) {
                 self.setState({ message: 'Inviting the user failed' });

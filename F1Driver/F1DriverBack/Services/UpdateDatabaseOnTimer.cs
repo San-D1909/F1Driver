@@ -47,7 +47,7 @@ namespace F1DriverBack.Services
                 IPopulateDatabase populateClass = new PopulateDatabase(context);
                 await populateClass.Populate();
             }
-            Console.WriteLine("test");
+            Console.WriteLine("Database update succes");
 
         }
     }
