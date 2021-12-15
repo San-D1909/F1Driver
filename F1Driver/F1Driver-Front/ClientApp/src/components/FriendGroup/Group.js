@@ -6,6 +6,11 @@ import Form from 'reactstrap/lib/Form';
 import Label from 'reactstrap/lib/Label';
 import { Input } from 'reactstrap';
 
+function join(parameter) {
+    Group.setState({ groupName: parameter })
+    Group.JoinGroup()
+}
+
 export class Group extends Component {
     static displayName = Group.name;
 
@@ -14,13 +19,13 @@ export class Group extends Component {
 
         this.state = {
             user: [],
-            test: '',
+            friendGroup: '',
             groupName: '',
-            noGroup: false,
             searchString: '',
             invite: false,
             message: '',
             error: false,
+            notifications: [],
         }
     }
     componentDidMount() {
@@ -29,10 +34,11 @@ export class Group extends Component {
                 window.location.assign("../login")
             )
         }
-        this.GetUser();
-        this.GetNotifications();
+        this.GetUser()
     }
-
+    componentDidUpdate() {
+        console.log(this.state.friendGroup);
+    }
 
     GetUser = async () => {
         var self = this;
@@ -44,32 +50,32 @@ export class Group extends Component {
             }
         }).then(function (data) {
             console.log(data.data);
-            self.setState({ user: data.data, test: "ok" });
-            if (data.data.friendGroup === '0' || data.data.friendGroup == null) {
-                self.setState({ noGroup: true });
-            }
+            self.setState({ user: data.data });
+            self.GetNotifications();
         });
     }
 
     JoinGroup = (event) => {
-        var self = this;
         var userAndGroupDTO = {
+            groupID: this.state.friendGroup,
             User: this.state.user,
             FriendGroup: null,
-            searchString: this.state.searchString,
+            searchString: null
         }
+        var self = this;
+        console.log(userAndGroupDTO)
+        console.log(this.state.friendGroup)
         axios({
             method: 'POST',
             url: 'http://localhost:5001/Group/JoinGroup/JoinGroup',
             dataType: "json",
             data: userAndGroupDTO,
         }).then(function (data) {
-
             if (data.data == false) {
-                self.setState({ message: 'Inviting the user failed'});
+                self.setState({ message: 'Inviting the user failed' });
             }
             else {
-                self.setState({ message: 'User invited'});
+                self.setState({ message: 'User invited' });
             }
         });
     }
@@ -88,30 +94,26 @@ export class Group extends Component {
             data: userAndGroupDTO,
         }).then(function (data) {
             if (data.data == false) {
-                self.setState({ message: 'Inviting the user failed'});
-            }
-            else {
-                self.setState({ message: 'User invited'});
-            }
-        });
-    }
-
-    GetNotifications = (event) => {
-        axios({
-            method: 'get',
-            url: 'http://localhost:5001/Group/GetNotifications/GetNotifications',
-            dataType: "json",
-            params: {
-                notificationType: "Group_inv",
-                userID: this.state.user.ID
-            }
-        }).then(function (data) {
-            if (data.data == false) {
                 self.setState({ message: 'Inviting the user failed' });
             }
             else {
                 self.setState({ message: 'User invited' });
             }
+        });
+    }
+
+    GetNotifications = async => {
+        var self = this;
+        axios({
+            method: 'POST',
+            url: 'http://localhost:5001/Notification/GetNotifications/GetNotifications',
+            params: {
+                notificationType: "Group_inv",
+                userID: this.state.user.id
+            }
+        }).then(function (data) {
+            console.log(data.data)
+            self.setState({ notifications: data.data })
         });
     }
 
@@ -141,27 +143,37 @@ export class Group extends Component {
     render() {
         if (this.state.user.friendGroup == 0 || this.state.user.friendGroup == null) {
             return (
-                <Card>
-                    {this.state.message.length !== 0 &&
-                        <div className="alert alert-warning" >
-                            <strong>{this.state.message}</strong>
-                        </div>
-                    }
-                    <CardBody>
-                        <h1 className="text-center">Create a group</h1>
-                        <div className="col-12">
-                            <Form>
-                                <div className="py-2">
-                                    <Label for="groupName">Groupname</Label>
-                                    <Input type="text" onChange={(e) => this.setState({ groupName: e.target.value })} name="groupName" />
-                                </div>
-                                <div className="py-2">
-                                    <button className="my-2 mr-2 ml-0" onClick={(e) => this.createGroup(e)}>Create</button>
-                                </div>
-                            </Form>
-                        </div>
-                    </CardBody>
-                </Card>
+                <body>
+                    <Card>
+                        {this.state.message.length !== 0 &&
+                            <div className="alert alert-warning" >
+                                <strong>{this.state.message}</strong>
+                            </div>
+                        }
+                        <CardBody>
+                            <h1 className="text-center">Create a group</h1>
+                            <div className="col-12">
+                                <Form>
+                                    <div className="py-2">
+                                        <Label for="groupName">Groupname</Label>
+                                        <Input type="text" onChange={(e) => this.setState({ groupName: e.target.value })} name="groupName" />
+                                    </div>
+                                    <div className="py-2">
+                                        <button className="my-2 mr-2 ml-0" onClick={(e) => this.createGroup(e)}>Create</button>
+                                    </div>
+                                </Form>
+                            </div>
+                            <hr class="solid"></hr>
+                            {this.state.notifications.map(notification =>
+                                <tr key={notification.id}>
+                                    <td>ID: {notification.id}</td>
+                                    <td>Message: {notification.notification}</td>
+                                    <button className="my-2 mr-2 ml-0" onClick={(e) => { this.setState({ friendGroup: notification.friendGroup }); this.JoinGroup(); }}>Accept invite</button>
+                                </tr>
+                            )}
+                        </CardBody>
+                    </Card>
+                </body>
             );
         }
         else {

@@ -10,5 +10,6 @@ namespace ModelLayer.DTO
         public UserModel User { get; set; }
         public FriendGroupModel FriendGroup { get; set; }
         public string searchString { get; set; }
+        public int? groupID { get; set; }
     }
 }

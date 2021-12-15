@@ -14,5 +14,6 @@ namespace ModelLayer
         public int User_Id { get; set; }
         public int NotificationType { get; set; }
         public string Notification { get; set; }
+        public int? FriendGroup { get; set; }
     }
 }

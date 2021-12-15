@@ -18,7 +18,7 @@ namespace BettingServiceBack.Controllers
             Notification = notification;
         }
         [HttpPost("GetNotifications")]
-        public async Task<IActionResult> GetNotifications([FromQuery] string notificationType,[FromQuery]string userID)
+        public async Task<IActionResult> GetNotifications([FromQuery] string notificationType,[FromQuery] string userID)
         {
             List<NotificationModel> notifications = await Notification.GetNotification(notificationType, Convert.ToInt32(userID));
             return Ok(notifications);

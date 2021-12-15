@@ -63,7 +63,7 @@ namespace BettingServiceDataLayer.Classes
             try
             {
                 UserModel user = await _context.User.Where(user => user.Email == userAndGroupDTO.searchString).FirstOrDefaultAsync();
-                NotificationModel notification = new NotificationModel {Notification= "Group "+userAndGroupDTO.User.FriendGroup+" has invited you to their group", NotificationType=1,User_Id = user.ID};
+                NotificationModel notification = new NotificationModel {Notification= "Group "+userAndGroupDTO.User.FriendGroup+" has invited you to their group", NotificationType=1,User_Id = user.ID,FriendGroup = userAndGroupDTO.User.FriendGroup};
                 _context.Notification.Add(notification);
                 await _context.SaveChangesAsync();
                 return true;
