@@ -10,5 +10,6 @@ namespace BettingServiceDataLayer.Interfaces
     public interface INotification
     {
         public Task<List<NotificationModel>> GetNotification(string type, int userID);
+        public Task<bool> DeleteNotification(string ID);
     }
 }

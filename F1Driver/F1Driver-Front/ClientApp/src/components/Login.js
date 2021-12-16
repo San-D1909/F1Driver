@@ -73,7 +73,7 @@ export class Login extends Component {
             <>
                 <Card>
                     <CardBody>
-                        <h1 className="text-center">LoginForm</h1>
+                        <h1 className="text-center">Login</h1>
                         <div className="col-12">
                             <Form>
                                 {this.state.hasError && (

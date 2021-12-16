@@ -16,7 +16,24 @@ namespace BettingServiceDataLayer.Classes
         {
             _context = context;
         }
-        public async Task<List<NotificationModel>> GetNotification(string type,int userID)
+
+        public async Task<bool> DeleteNotification(string ID)
+        {
+            try
+            {
+                NotificationModel notification = await _context.Notification.Where(n => n.ID == Convert.ToInt32(ID)).FirstOrDefaultAsync();
+                _context.Notification.Remove(notification);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public async Task<List<NotificationModel>> GetNotification(string type, int userID)
         {
             NotificationTypeModel ntype = await _context.NotificationType.Where(n => n.type == type).FirstOrDefaultAsync();
             List<NotificationModel> notifications = await _context.Notification.Where(n => n.NotificationType == ntype.ID && n.User_Id == userID).ToListAsync();

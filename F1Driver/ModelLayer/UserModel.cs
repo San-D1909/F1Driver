@@ -17,6 +17,6 @@ namespace ModelLayer
         public string UserName { get; set; }
         public int? FriendGroup { get; set; }
         public int? BettingScore { get; set; }
-
+        public string FavoriteDriver { get; set; }
     }
 }

@@ -34,17 +34,30 @@ namespace BettingServiceDataLayer.Classes
             return friendGroupModel;
         }
 
+        public async Task<GroupDetailDTO> GetGroupDetails(int groupID)
+        {
+            GroupDetailDTO group = new GroupDetailDTO { FriendGroup = await _context.FriendGroup.Where(g => g.ID == groupID).FirstOrDefaultAsync(), Users = await _context.User.Where(u => u.FriendGroup == groupID).ToListAsync()};
+            foreach(UserModel user in group.Users)
+            {
+                if (user.BettingScore == null)
+                {
+                    user.BettingScore = 0;
+                }
+            }    
+            return group;
+        }
+
         public async Task<bool> JoinGroup(UserAndGroupDTO userAndGroupDTO)
         {
             try
             {
-                UserModel user = await _context.User.Where(user => user.Email == userAndGroupDTO.searchString).FirstOrDefaultAsync();
+                UserModel user = await _context.User.Where(user => user.Email == userAndGroupDTO.User.Email).FirstOrDefaultAsync();
                 if (user == null)
                 {
                     return false;
                 }
                 UserModel newUser = user;
-                newUser.FriendGroup = userAndGroupDTO.User.FriendGroup;
+                newUser.FriendGroup = userAndGroupDTO.groupID;
                 _context.User.Update(user).CurrentValues.SetValues(user);
                 await _context.SaveChangesAsync();
                 return true;
@@ -55,7 +68,23 @@ namespace BettingServiceDataLayer.Classes
                 return false;
 
             }
+        }
 
+        public async Task<bool> LeaveGroup(int userID)
+        {
+            try
+            {
+                UserModel user = await _context.User.Where(u => u.ID == userID).FirstOrDefaultAsync();
+                user.FriendGroup = null;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+
+            }
         }
 
         public async Task<bool> SendGroupInvite(UserAndGroupDTO userAndGroupDTO)
@@ -63,7 +92,8 @@ namespace BettingServiceDataLayer.Classes
             try
             {
                 UserModel user = await _context.User.Where(user => user.Email == userAndGroupDTO.searchString).FirstOrDefaultAsync();
-                NotificationModel notification = new NotificationModel {Notification= "Group "+userAndGroupDTO.User.FriendGroup+" has invited you to their group", NotificationType=1,User_Id = user.ID,FriendGroup = userAndGroupDTO.User.FriendGroup};
+                FriendGroupModel group = await _context.FriendGroup.Where(g => g.ID == userAndGroupDTO.User.FriendGroup).FirstOrDefaultAsync();
+                NotificationModel notification = new NotificationModel {Notification= userAndGroupDTO.User.UserName+" has invited you to the group "+group.GroupName+"!", NotificationType=1,User_Id = user.ID,FriendGroup = userAndGroupDTO.User.FriendGroup};
                 _context.Notification.Add(notification);
                 await _context.SaveChangesAsync();
                 return true;

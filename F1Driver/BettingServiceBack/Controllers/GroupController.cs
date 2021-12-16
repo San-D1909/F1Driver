@@ -27,8 +27,12 @@ namespace BettingServiceDataLayer.Controllers
         [HttpPost("JoinGroup")]
         public async Task<IActionResult> JoinGroup([FromBody] UserAndGroupDTO userAndGroupDTO)
         {
-            bool worked = await FriendGroup.JoinGroup(userAndGroupDTO);
-            return Ok(worked);
+            return Ok(await FriendGroup.JoinGroup(userAndGroupDTO));
+        }
+        [HttpPost("LeaveGroup")]
+        public async Task<IActionResult> LeaveGroup([FromQuery] string userID)
+        {
+            return Ok(await FriendGroup.LeaveGroup(Convert.ToInt32(userID)));
         }
         [HttpPost("InviteToGroup")]
         public async Task<IActionResult> InviteToGroup([FromBody] UserAndGroupDTO userAndGroupDTO)
@@ -37,9 +41,9 @@ namespace BettingServiceDataLayer.Controllers
             return Ok(worked);
         }
         [HttpPost("GetGroupDetails")]
-        public async Task<IActionResult> GetGroupDetails([FromBody] UserModel user)
+        public async Task<IActionResult> GetGroupDetails([FromQuery] string groupID)
         {
-            return null;
+            return Ok(await FriendGroup.GetGroupDetails(Convert.ToInt32(groupID)));
         }
     }
 }

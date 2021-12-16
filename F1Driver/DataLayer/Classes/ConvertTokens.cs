@@ -30,6 +30,10 @@ namespace DataLayer.Classes
             }
             int id = Convert.ToInt32(user.Claims.First().Value);
             UserModel userById = await _context.User.Where(user=>user.ID == id).FirstOrDefaultAsync();
+            if(userById.BettingScore==null)
+            {
+                userById.BettingScore = 0;
+            }
             return userById;
         }
     }

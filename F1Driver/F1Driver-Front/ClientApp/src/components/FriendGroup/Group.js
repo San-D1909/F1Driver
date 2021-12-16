@@ -5,11 +5,8 @@ import CardBody from 'reactstrap/lib/CardBody';
 import Form from 'reactstrap/lib/Form';
 import Label from 'reactstrap/lib/Label';
 import { Input } from 'reactstrap';
+import "../CSS/Grouppage.css";
 
-function join(parameter) {
-    Group.setState({ groupName: parameter })
-    Group.JoinGroup()
-}
 
 export class Group extends Component {
     static displayName = Group.name;
@@ -26,6 +23,8 @@ export class Group extends Component {
             message: '',
             error: false,
             notifications: [],
+            group: [],
+            users: [],
         }
     }
     componentDidMount() {
@@ -35,9 +34,6 @@ export class Group extends Component {
             )
         }
         this.GetUser()
-    }
-    componentDidUpdate() {
-        console.log(this.state.friendGroup);
     }
 
     GetUser = async () => {
@@ -52,19 +48,18 @@ export class Group extends Component {
             console.log(data.data);
             self.setState({ user: data.data });
             self.GetNotifications();
+            if (data.data.friendGroup != null) {
+                self.GetGroupDetails(data.data.friendGroup)
+            }
         });
     }
 
-    JoinGroup = (event) => {
+    JoinGroup = (notification) => {
         var userAndGroupDTO = {
-            groupID: this.state.friendGroup,
+            groupID: notification.friendGroup,
             User: this.state.user,
-            FriendGroup: null,
-            searchString: null
         }
         var self = this;
-        console.log(userAndGroupDTO)
-        console.log(this.state.friendGroup)
         axios({
             method: 'POST',
             url: 'http://localhost:5001/Group/JoinGroup/JoinGroup',
@@ -72,10 +67,48 @@ export class Group extends Component {
             data: userAndGroupDTO,
         }).then(function (data) {
             if (data.data == false) {
-                self.setState({ message: 'Inviting the user failed' });
+                self.setState({ message: 'Joining group failed, group might not exist!' });
             }
             else {
-                self.setState({ message: 'User invited' });
+                self.setState({ message: 'Success' });
+                self.DeleteNotification(notification.id)
+                window.location.assign("../Group")
+            }
+        });
+    }
+    LeaveGroup = (userID) => {
+        if (userID == "") {
+            userID = this.state.user.id
+        }
+        console.log(userID)
+        var self = this;
+        axios({
+            method: 'POST',
+            url: 'http://localhost:5001/Group/LeaveGroup/LeaveGroup',
+            params: {
+                userID: userID
+            }
+        }).then(function (data) {
+            window.location.assign("../Group")
+        });
+    }
+
+    DeleteNotification = (event) => {
+        var notificationID = event
+        var self = this;
+        axios({
+            method: 'POST',
+            url: 'http://localhost:5001/Notification/DeleteNotification/DeleteNotification',
+            params: {
+                notificationID: notificationID
+            }
+        }).then(function (data) {
+            if (data.data == false) {
+                self.setState({ message: 'Could not delete invite' });
+            }
+            else {
+                self.setState({ message: 'Success' });
+                window.location.assign("../Group")
             }
         });
     }
@@ -117,6 +150,20 @@ export class Group extends Component {
         });
     }
 
+    GetGroupDetails = (group) => {
+        var self = this;
+        axios({
+            method: 'POST',
+            url: 'http://localhost:5001/Group/GetGroupDetails/GetGroupDetails',
+            params: {
+                groupID: group
+            }
+        }).then(function (data) {
+            console.log(data.data)
+            self.setState({ group: data.data, users: data.data.users })
+        });
+    }
+
     createGroup = async () => {
         var FriendGroup = {
             GroupName: this.state.groupName,
@@ -137,43 +184,43 @@ export class Group extends Component {
     }
 
     changePage = () => {
-        this.setState({ invite: !this.state.invite })
+        this.setState({ invite: !this.state.invite, message: "" })
     }
 
     render() {
         if (this.state.user.friendGroup == 0 || this.state.user.friendGroup == null) {
             return (
-                <body>
-                    <Card>
-                        {this.state.message.length !== 0 &&
-                            <div className="alert alert-warning" >
-                                <strong>{this.state.message}</strong>
-                            </div>
-                        }
-                        <CardBody>
-                            <h1 className="text-center">Create a group</h1>
-                            <div className="col-12">
-                                <Form>
-                                    <div className="py-2">
-                                        <Label for="groupName">Groupname</Label>
-                                        <Input type="text" onChange={(e) => this.setState({ groupName: e.target.value })} name="groupName" />
-                                    </div>
-                                    <div className="py-2">
-                                        <button className="my-2 mr-2 ml-0" onClick={(e) => this.createGroup(e)}>Create</button>
-                                    </div>
-                                </Form>
-                            </div>
-                            <hr class="solid"></hr>
+                <Card>
+                    {this.state.message.length !== 0 &&
+                        <div className="alert alert-warning" >
+                            <strong>{this.state.message}</strong>
+                        </div>
+                    }
+                    <CardBody>
+                        <h1 className="text-center">Create a group</h1>
+                        <div className="col-12">
+                            <Form>
+                                <div className="py-2">
+                                    <Label style={{ fontWeight: 'bold' }} for="groupName">Groupname</Label>
+                                    <Input className="input-group-text" type="text" onChange={(e) => this.setState({ groupName: e.target.value })} name="groupName" />
+                                </div>
+                                <div className="py-2">
+                                    <button className="btn btn-danger" onClick={(e) => this.createGroup(e)}>Create</button>
+                                </div>
+                            </Form>
+                        </div>
+                        <h4 className="text-center">Messages</h4>
+                        <table className='table table-striped' aria-labelledby="tabelLabel">
                             {this.state.notifications.map(notification =>
                                 <tr key={notification.id}>
-                                    <td>ID: {notification.id}</td>
-                                    <td>Message: {notification.notification}</td>
-                                    <button className="my-2 mr-2 ml-0" onClick={(e) => { this.setState({ friendGroup: notification.friendGroup }); this.JoinGroup(); }}>Accept invite</button>
+                                    <td>{notification.notification}</td>
+                                    <td style={{ cursor: 'pointer', fontWeight: 'bold' }} onClick={(e) => this.JoinGroup(notification)}>Accept invite</td>
+                                    <td style={{ cursor: 'pointer', fontWeight: 'bold' }} className="my-2 mr-2 ml-0" onClick={(e) => this.DeleteNotification(notification.id)}>X</td>
                                 </tr>
                             )}
-                        </CardBody>
-                    </Card>
-                </body>
+                        </table>
+                    </CardBody>
+                </Card>
             );
         }
         else {
@@ -185,15 +232,15 @@ export class Group extends Component {
                                 <strong>{this.state.message}</strong>
                             </div >
                         }
-                        <div>
-                            <h1 style={{ color: "white" }}>Invite a friend by email</h1>
-                            <button onClick={this.changePage}>Back to group</button>
-                        </div>
+                        <h1 style={{ color: "white" }}>Invite a friend by email</h1>
                         <Card>
                             <CardBody>
+                                <div>
+                                    <button className="btn btn-danger" onClick={this.changePage}>Back to group</button>
+                                </div>
                                 <div >
                                     <input onChange={(e) => this.setState({ searchString: e.target.value })} placeholder="Insert an emailadress"></input>
-                                    <button onClick={this.InviteToGroup}>Invite</button>
+                                    <button className="btn btn-danger" onClick={this.InviteToGroup}>Invite</button>
                                 </div>
                             </CardBody>
                         </Card>
@@ -204,7 +251,28 @@ export class Group extends Component {
                 <body>
                     <div>
                         <h1 style={{ color: "white" }}>Welcome to your group</h1>
-                        <button onClick={this.changePage}>Inivite friends</button>
+                        <Card>
+                            <CardBody>
+                                <button className="btn btn-danger" onClick={this.changePage}>Invite friends</button>
+                                <button style={{ margin:10 }} className="btn btn-danger" onClick={(e)=>this.LeaveGroup("")}>Leave this group</button>
+                                <table className='table table-striped' aria-labelledby="tabelLabel">
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Pool score</th>
+                                        <th>FavoriteDriver</th>
+                                        <th>Remove from group</th>
+                                    </tr>
+                                    {this.state.users.map(user =>
+                                        <tr key={user.id}>
+                                            <td>{user.userName}</td>
+                                            <td>{user.bettingScore}</td>
+                                            <td>{user.favoriteDriver}</td>
+                                            <td style={{ cursor: 'pointer', fontWeight: 'bold' }} className="my-2 mr-2 ml-0" onClick={(e) => this.LeaveGroup(user.id)}>X</td>
+                                        </tr>
+                                    )}
+                                </table>
+                            </CardBody>
+                        </Card>
                     </div>
                 </body >
             );

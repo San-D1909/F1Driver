@@ -23,5 +23,10 @@ namespace BettingServiceBack.Controllers
             List<NotificationModel> notifications = await Notification.GetNotification(notificationType, Convert.ToInt32(userID));
             return Ok(notifications);
         }
+        [HttpPost("DeleteNotification")]
+        public async Task<IActionResult> DeleteNotification([FromQuery] string notificationID)
+        {
+            return Ok(await Notification.DeleteNotification(notificationID));
+        }
     }
 }
