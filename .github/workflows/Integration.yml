@@ -24,7 +24,19 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0   
+          
+            # restore dependencies  
+      - name: Install dependencies
+        run: dotnet restore
 
+      # build project
+      - name: Build
+        run: dotnet build --configuration $config --no-restore
+      
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
