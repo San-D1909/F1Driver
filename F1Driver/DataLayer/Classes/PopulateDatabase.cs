@@ -22,7 +22,7 @@ namespace DataLayer.Classes
         }
         public async Task<bool> Populate()
         {//Method that calls all the classes to fill the database
-            await ClearYear();
+            /*await ClearYear();*/
             PopulateDriversAndTeams getDriverData = new(_context);
             PopulateCircuits getCircuitData = new(_context);
             PopulateRaces getRaceData = new(_context);
