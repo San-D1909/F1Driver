@@ -37,7 +37,7 @@ namespace F1DriverBack.Controllers
 
         }
         [HttpPost("RegisterFunction")]
-        public async Register([FromBody] UserModel credentials)
+        public async Task<IActionResult> Register([FromBody] UserModel credentials)
         {
             try
             {
