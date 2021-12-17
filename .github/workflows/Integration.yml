@@ -28,8 +28,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./F1Driver.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build F1DriverBack/F1DriverBack.csproj --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./F1Driver.sln --configuration Release
