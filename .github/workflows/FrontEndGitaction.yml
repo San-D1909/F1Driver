@@ -21,7 +21,7 @@ jobs:
       with:
         node-version: 14.x
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build
-    - run: npm run format-check
-    - run: npm test
+    - run: npm ci F1Driver/F1Driver-Front/ClientApp
+    - run: npm run build F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
+    - run: npm run format-check F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
+    - run: npm test F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
