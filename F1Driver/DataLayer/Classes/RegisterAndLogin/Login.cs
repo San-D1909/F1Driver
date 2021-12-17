@@ -29,7 +29,6 @@ namespace DataLayer.Classes.RegisterAndLogin
         {
             loginRecords.Password = _encryptor.EncryptPassword(loginRecords.Password);
             UserModel user = await _context.User.Where(u => u.Email == loginRecords.Email && u.Password == loginRecords.Password).FirstOrDefaultAsync();
-
             if (user != null)
             {
                 Claim[] claims = new Claim[]
@@ -37,11 +36,8 @@ namespace DataLayer.Classes.RegisterAndLogin
                      new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
                       new Claim(ClaimTypes.Email, user.Email),
                       new Claim(ClaimTypes.Name, user.UserName)
-
                 };
-
                 var token = TokenClass.CreateToken(claims, _config);
-
                 return token;
             }
             else

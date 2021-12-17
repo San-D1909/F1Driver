@@ -90,7 +90,7 @@ export class Login extends Component {
                                     <Input type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password" />
                                 </div>
                                 <div className="py-2">
-                                    <Button className="my-2 mr-2 ml-0 loginbutton" onClick={(e) => this.LoginEvent(e)}>Login</Button>
+                                    <Button className="btn btn-danger" onClick={(e) => this.LoginEvent(e)}>Login</Button>
                                     <Link className="m-2 registerlink" to="/register">No account yet? Register here!</Link>
                                 </div>
                             </Form>
