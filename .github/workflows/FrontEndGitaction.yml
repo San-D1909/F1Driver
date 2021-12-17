@@ -21,7 +21,6 @@ jobs:
       with:
         node-version: 14.x
         cache: 'npm'
-    - run: cd F1Driver/F1Driver-Front/ClientApp
-    - run: npm i 
-    - run: ls
-    - run: npm run build
+    - run: cd F1Driver/F1Driver-Front/ClientApp && npm i 
+    - run: cd F1Driver/F1Driver-Front/ClientApp && ls
+    - run: cd F1Driver/F1Driver-Front/ClientApp && npm run build
