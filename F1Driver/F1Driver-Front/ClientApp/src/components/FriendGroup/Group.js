@@ -76,6 +76,7 @@ export class Group extends Component {
             }
         });
     }
+
     LeaveGroup = (userID) => {
         if (userID == "") {
             userID = this.state.user.id
@@ -254,22 +255,24 @@ export class Group extends Component {
                         <Card>
                             <CardBody>
                                 <button className="btn btn-danger" onClick={this.changePage}>Invite friends</button>
-                                <button style={{ margin:10 }} className="btn btn-danger" onClick={(e)=>this.LeaveGroup("")}>Leave this group</button>
+                                <button style={{ margin: 10 }} className="btn btn-danger" onClick={(e) => this.LeaveGroup("")}>Leave this group</button>
                                 <table className='table table-striped' aria-labelledby="tabelLabel">
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Pool score</th>
-                                        <th>FavoriteDriver</th>
-                                        <th>Remove from group</th>
-                                    </tr>
-                                    {this.state.users.map(user =>
-                                        <tr key={user.id}>
-                                            <td>{user.userName}</td>
-                                            <td>{user.bettingScore}</td>
-                                            <td>{user.favoriteDriver}</td>
-                                            <td style={{ cursor: 'pointer', fontWeight: 'bold' }} className="my-2 mr-2 ml-0" onClick={(e) => this.LeaveGroup(user.id)}>X</td>
+                                    <tbody>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Pool score</th>
+                                            <th>FavoriteDriver</th>
+                                            <th>Remove from group</th>
                                         </tr>
-                                    )}
+                                        {this.state.users.map(user =>
+                                            <tr key={user.id}>
+                                                <td>{user.userName}</td>
+                                                <td>{user.bettingScore}</td>
+                                                <td>{user.favoriteDriver}</td>
+                                                <td style={{ cursor: 'pointer', fontWeight: 'bold' }} className="my-2 mr-2 ml-0" onClick={(e) => this.LeaveGroup(user.id)}>X</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
                                 </table>
                             </CardBody>
                         </Card>
