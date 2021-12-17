@@ -21,7 +21,8 @@ jobs:
       with:
         node-version: 14.x
         cache: 'npm'
-    - run: npm ci cd F1Driver/F1Driver-Front/ClientApp/package-lock.json
-    - run: npm run build cd F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
-    - run: npm run cd format-check F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
-    - run: npm test cd F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
+    - run: ls
+    - run: npm i F1Driver/F1Driver-Front/ClientApp/package.json
+    - run: npm run build F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
+    - run: npm run format-check F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
+    - run: npm test F1Driver/F1Driver-Front/F1DriverBack-Front.csproj
