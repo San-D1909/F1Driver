@@ -30,6 +30,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore F1Driver/F1Driver.sln
     - name: Build
-      run: dotnet build F1DriverBack/F1DriverBack.csproj --configuration Release
+      run: dotnet build F1Driver/F1DriverBack/F1DriverBack.csproj --configuration Release
     - name: Test
-      run: dotnet test ./F1Driver.sln --configuration Release
+      run: dotnet test F1Driver/F1Driver.sln --configuration Release
