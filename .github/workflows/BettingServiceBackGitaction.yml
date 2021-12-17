@@ -1,0 +1,25 @@
+name: .NET
+
+on:
+  push:
+    branches: [ Gitactions ]
+  pull_request:
+    branches: [ Gitactions ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore F1Driver/F1Driver.sln
+    - name: Build
+      run: dotnet build F1Driver/BettingServiceBack/BettingServiceBack.csproj --configuration Release
+    - name: Test
+      run: dotnet test F1Driver/F1Driver.sln --configuration Release
