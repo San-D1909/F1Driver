@@ -24,3 +24,5 @@ jobs:
     - run: cd F1Driver/F1Driver-Front/ClientApp && npm i 
     - run: cd F1Driver/F1Driver-Front/ClientApp && ls
     - run: cd F1Driver/F1Driver-Front/ClientApp && npm run build
+      env:
+          CI: ""
