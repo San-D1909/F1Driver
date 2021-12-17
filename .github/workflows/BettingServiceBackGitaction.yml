@@ -1,4 +1,4 @@
-name: .NET
+name: BettingServiceBack
 
 on:
   push:
