@@ -21,6 +21,7 @@ namespace BettingServiceDataLayer
         public DbSet<ModelLayer.ConstructorModel> Constructor { get; set; }
         public DbSet<ModelLayer.UserModel> User { get; set; }
         public DbSet<ModelLayer.FriendGroupModel> FriendGroup { get; set; }
+        public DbSet<ModelLayer.BetModel> Bet { get; set; }
     }
 }
 

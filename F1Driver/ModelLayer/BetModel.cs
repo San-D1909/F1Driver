@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using ModelLayer;
 
-namespace ModelLayer.DTO
+namespace ModelLayer
 {
-    public class BetDTO
+    public class BetModel
     {
         [Key]
         public int ID { get; set; }
-        public DriverModel Driver { get; set; }
+        public int DriverID { get; set; }
         public int UserID { get; set; }
-        public RaceModel Race { get; set; }
+        public int Race { get; set; }
         public int Category { get; set; }
     }
 }

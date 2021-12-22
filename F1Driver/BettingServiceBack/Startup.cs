@@ -41,6 +41,7 @@ namespace BettingServiceDataLayer
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddScoped<IGroup, GroupClass>();
             services.AddScoped<INotification, NotificationClass>();
+            services.AddScoped<IBet, BettingClass>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
