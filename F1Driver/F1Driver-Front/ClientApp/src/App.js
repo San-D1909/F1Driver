@@ -10,6 +10,7 @@ import { Login } from './components/Login';
 import { Logout } from './components/Logout';
 import { Register } from './components/Register';
 import { Group } from './components/FriendGroup/Group';
+import { Bet } from './components/Betting/Bet';
 
 
 import './custom.css'
@@ -31,6 +32,7 @@ export default class App extends Component {
                 <Route exact path='/Register' component={Register} />
                 <Route exact path='/Logout' component={Logout} />
                 <Route exact path='/Group' component={Group} />
+                <Route exact path='/Bet' component={Bet} />
             </Layout>
         );
     }

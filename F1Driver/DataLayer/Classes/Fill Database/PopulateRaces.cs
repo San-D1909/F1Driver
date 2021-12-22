@@ -79,6 +79,14 @@ namespace DataLayer.Classes.Fill_Database
                 resultModel.Race = round.ToString();
                 resultModel.DriverID = (string)result.SelectToken("Driver.driverId");
                 resultModel.ConstructorID = (string)result.SelectToken("Constructor.constructorId");
+                if (result.SelectToken("FastestLap") !=null)
+                {
+                    resultModel.FastestLapRank = (string)result.SelectToken("FastestLap.rank");
+                }
+                else
+                {
+                    resultModel.FastestLapRank = "0";
+                }
                 raceResultModels.Add(resultModel);
             }
             return raceResultModels;

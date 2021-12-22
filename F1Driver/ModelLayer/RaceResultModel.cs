@@ -19,5 +19,6 @@ namespace ModelLayer
         public string Race { get; set; }
         public string DriverID { get; set; }
         public string ConstructorID { get; set; }
+        public string FastestLapRank { get; set; }
     }
 }

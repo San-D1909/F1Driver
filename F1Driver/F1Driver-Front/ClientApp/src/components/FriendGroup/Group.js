@@ -238,10 +238,11 @@ export class Group extends Component {
                             <CardBody>
                                 <div>
                                     <button className="btn btn-danger" onClick={this.changePage}>Back to group</button>
+                                    <button style={{ margin: 10 }} className="btn btn-danger" onClick={(e) => window.location.assign("Bet")}>Go to betting page</button>
                                 </div>
                                 <div >
                                     <input onChange={(e) => this.setState({ searchString: e.target.value })} placeholder="Insert an emailadress"></input>
-                                    <button className="btn btn-danger" onClick={this.InviteToGroup}>Invite</button>
+                                    <button style={{ margin: 10 }} className="btn btn-danger" onClick={this.InviteToGroup}>Invite</button>
                                 </div>
                             </CardBody>
                         </Card>
@@ -255,7 +256,8 @@ export class Group extends Component {
                         <Card>
                             <CardBody>
                                 <button className="btn btn-danger" onClick={this.changePage}>Invite friends</button>
-                                <button style={{ margin: 10 }} className="btn btn-danger" onClick={(e) => this.LeaveGroup("")}>Leave this group</button>
+                                <button style={{ margin: 10 }} className="btn btn-danger" onClick={(e) => window.location.assign("Bet")}>Go to betting page</button>
+                                <button className="btn btn-danger" onClick={(e) => this.LeaveGroup("")}>Leave this group</button>
                                 <table className='table table-striped' aria-labelledby="tabelLabel">
                                     <tbody>
                                         <tr>

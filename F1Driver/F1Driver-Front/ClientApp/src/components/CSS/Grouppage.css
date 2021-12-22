@@ -2,4 +2,5 @@
 
 tr:nth-child(even) {
     background-color: #dddddd;
+    color: black;
 }

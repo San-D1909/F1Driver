@@ -58,7 +58,16 @@ export class Layout extends Component {
                         href: "Group",
                     }
                 ]
+            var BetItem =
+                [
+                    {
+                        name: "Bet",
+                        color: "#C80000 ",
+                        href: "Bet",
+                    }
+                ]
             items = items.concat(groupItem);
+            items = items.concat(BetItem);
             items = items.concat(logoutItem);
         }
     }
