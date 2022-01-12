@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DataLayer.Classes.Fill_Database
 {
-    class PopulateCircuits
+    public class PopulateCircuits
     {
         private readonly ApplicationDbContext _context;
         public PopulateCircuits(ApplicationDbContext context)
