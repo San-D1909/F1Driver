@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Classes.Fill_Database
 {
-    class PopulateRaces
+    public class PopulateRaces
     {
         private readonly ApplicationDbContext _context;
         public PopulateRaces(ApplicationDbContext context)

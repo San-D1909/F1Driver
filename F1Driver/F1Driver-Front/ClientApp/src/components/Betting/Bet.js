@@ -20,14 +20,20 @@ export class Bet extends Component {
             user: [],
             races: [],
             page: '',
+            first: [],
+            second: [],
+            third: [],
+            fastestLap: [],
+            minPage: ' ',
+            maxPage: '',
         }
     }
-
     componentDidMount() {
         this.GetDrivers();
         this.GetUpcomingRaces();
         this.GetUser();
     }
+
 
     GetDrivers = async () => {
         var self = this;
@@ -36,9 +42,11 @@ export class Bet extends Component {
             url: 'http://localhost:5000/DriverStandings/SendDriverStandings/DriverStandings'
         }).then(function (data) {
             self.setState({ drivers: data.data });
+            console.log(data.data)
         });
     }
-    SetBet = (driver, category,race) => {
+
+    SetBet = (driver, category, race) => {
         var self = this;
         var user = this.state.user.id
         console.log(user)
@@ -64,8 +72,8 @@ export class Bet extends Component {
         }).then(function (data) {
             console.log(data.data);
             var first = data.data[0]
-            console.log(first)
-            self.setState({ races: data.data, page: first.id });
+            var max = first.id + data.data.length - 1;
+            self.setState({ races: data.data, page: first.id, minPage: first.id, maxPage: max });
         });
     }
 
@@ -81,11 +89,64 @@ export class Bet extends Component {
             self.setState({ user: data.data });
         });
     }
+
+    GetBet =(page)=> {
+        var self = this;
+        var user = this.state.user
+        axios({
+            method: 'POST',
+            url: 'http://localhost:5001/Betting/GetBet/GetBet',
+            params: {
+                race: page,
+                userID: user.id
+            }
+        }).then(function (data) {
+            if (data.data.userID != null && data.data.userID != 0) {
+                self.setState({ first: data.data.first, second: data.data.second, third: data.data.third, fastestLap: data.data.fastestLap })
+            }
+        });
+    }
+
     NextPage(page) {
-        this.setState({ page: page + 1 })
+        if (page == this.state.maxPage) {
+            return;
+        }
+        this.setState({ page: page + 1, first: [], second: [], third: [], fastestLap: [], message: '' })
     }
     PrevPage(page) {
-        this.setState({ page: page - 1 })
+        if (page == this.state.minPage) {
+            return;
+        }
+        this.setState({ page: page - 1, first: [], second: [], third: [], fastestLap: [], message: '' })
+    }
+
+    handleFirst = (id) => {
+        let obj = JSON.parse(id.target.value);
+        this.setState({ first: obj.driver })
+        console.log(obj)
+        this.setState({ message: obj.driver.givenName + ' is going to be first' });
+        this.SetBet(obj.driver.id, 1, this.state.page)
+    }
+    handleSecond = (id) => {
+        let obj = JSON.parse(id.target.value);
+        this.setState({ second: obj.driver })
+        console.log(obj)
+        this.setState({ message: obj.driver.givenName + ' is going to be second' });
+        this.SetBet(obj.driver.id, 2, this.state.page)
+    }
+    handleThird = (id) => {
+        let obj = JSON.parse(id.target.value);
+        this.setState({ third: obj.driver })
+        console.log(obj)
+        this.setState({ message: obj.driver.givenName + ' is going to be third' });
+        this.SetBet(obj.driver.id, 3, this.state.page)
+    }
+    handleFasestLap = (id) => {
+        let obj = JSON.parse(id.target.value);
+        this.setState({ fastestLap: obj.driver })
+        console.log(obj)
+        this.setState({ message: obj.driver.givenName + ' is going to have the fastest lap' });
+        this.SetBet(obj.driver.id, 4, this.state.page)
     }
 
     render() {
@@ -94,8 +155,11 @@ export class Bet extends Component {
                 window.location.assign("login")
             )
         }
+        this.GetBet(this.state.page)
+        var raceInt = this.state.page - this.state.minPage
+        var race = this.state.races[raceInt]
         return (
-            <Card>
+            <Card className=".mx-auto" >
                 {this.state.message.length !== 0 &&
                     <div className="alert alert-warning" >
                         <strong>{this.state.message}</strong>
@@ -103,33 +167,66 @@ export class Bet extends Component {
                 }
                 <CardBody>
                     <button style={{ margin: 10 }} className="btn btn-danger" onClick={(e) => window.location.assign("Group")}>Grouppage</button>
-                    <div style={{ display: 'inline-block', float: 'right', margin:0 }}>
+                    <div style={{ display: 'inline-block', float: 'right', margin: 0 }}>
                         <button style={{ display: 'inline-block', margin: 10, fontWeight: 'bold' }} className="btn btn-success" onClick={(e) => this.PrevPage(this.state.page)}>{"<"}</button>
                         <p style={{ display: 'inline-block' }}>Page {this.state.page}</p>
-                        <button style={{ display: 'inline-block', margin: 10, fontWeight: 'bold'}} className="btn btn-success" onClick={(e) => this.NextPage(this.state.page)}>{">"}</button>
+                        <button style={{ display: 'inline-block', margin: 10, fontWeight: 'bold' }} className="btn btn-success" onClick={(e) => this.NextPage(this.state.page)}>{">"}</button>
                     </div>
-                    <table className='table table-striped' aria-labelledby="tabelLabel">
-                        <tbody>
-                            <tr>
-                                <th>Driver</th>
-                                <th>First</th>
-                                <th>Second</th>
-                                <th>Third</th>
-                                <th>FastestLap</th>
-                            </tr>
-                            {this.state.drivers.map(driver =>
-                                <tr key={driver.driver.id}>
-                                    <td>{driver.driver.givenName} {driver.driver.familyName}</td>
-                                    <td style={{ fontWeight: 'bold' }} className="btn btn-danger" onClick={(e) => this.SetBet(driver.driver.id, "1", this.state.page)}>X</td>
-                                    <td style={{ fontWeight: 'bold'  }} className="btn btn-danger" onClick={(e) => this.SetBet(driver.driver.id, "2", this.state.page)}>X</td>
-                                    <td style={{ fontWeight: 'bold' }} className="btn btn-danger" onClick={(e) => this.SetBet(driver.driver.id, "3", this.state.page)}>X</td>
-                                    <td style={{ fontWeight: 'bold' }} className="btn btn-danger" onClick={(e) => this.SetBet(driver.driver.id, "4", this.state.page)}>X</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    {race !== undefined &&
+                        <h1>{race.raceName}</h1>
+                    }
+                    <div className="row">
+                        <Card style={{ backgroundColor: "black", minHeight: "300px", minWidth: "200px", maxWidth: '200px', borderColor: "red", marginRight: '10px' }}>
+                            <CardBody>
+                                <p style={{ color: 'white', textAlign: 'center' }}>First place:</p>
+                                <select className="btn btn-danger" style={{ maxWidth: '160px', minWidth: "160px", marginRight: '10px' }} name="drivers" onChange={this.handleFirst} value={this.state.drivers}>
+                                    <option>{this.state.first.givenName} {this.state.first.familyName}</option>
+                                    {this.state.drivers.map((driver) => <option key={driver.driver.id} value={JSON.stringify(driver)}>{driver.driver.givenName} {driver.driver.familyName}</option>)}
+                                </select>
+                                {this.state.first.id > 0 &&
+                                    <img style={{ minWidth: "auto", minHeight: 'auto', marginTop: '15px', alignContent: 'center' }} src={this.state.first.imageUrl} alt="DriverPic" width="auto" height="170"></img>
+                                }
+                            </CardBody>
+                        </Card>
+                        <Card style={{ backgroundColor: "black", minHeight: "300px", minWidth: "200px", maxWidth: '200px', borderColor: "red", marginRight: '10px' }}>
+                            <CardBody>
+                                <p style={{ color: 'white', textAlign: 'center' }}>Second place:</p>
+                                <select className="btn btn-danger" style={{ maxWidth: '160px', minWidth: "160px", marginRight: '10px' }} name="drivers" onChange={this.handleSecond} value={this.state.drivers}>
+                                    <option value="select">{this.state.second.givenName} {this.state.second.familyName}</option>
+                                    {this.state.drivers.map((driver) => <option key={driver.driver.id} value={JSON.stringify(driver)}>{driver.driver.givenName} {driver.driver.familyName}</option>)}
+                                </select>
+                                {this.state.second.id > 0 &&
+                                    <img style={{ minWidth: "auto", minHeight: 'auto', marginTop: '15px', alignContent: 'center' }} src={this.state.second.imageUrl} alt="DriverPic" width="auto" height="170"></img>
+                                }
+                            </CardBody>
+                        </Card>
+                        <Card style={{ backgroundColor: "black", minHeight: "300px", minWidth: "200px", maxWidth: '200px', borderColor: "red", marginRight: '10px' }}>
+                            <CardBody>
+                                <p style={{ color: 'white', textAlign: 'center' }}>Third place:</p>
+                                <select className="btn btn-danger" style={{ maxWidth: '160px', minWidth: "160px", marginRight: '10px' }} name="drivers" onChange={this.handleThird} value={this.state.drivers}>
+                                    <option value="select">{this.state.third.givenName} {this.state.third.familyName}</option>
+                                    {this.state.drivers.map((driver) => <option key={driver.driver.id} value={JSON.stringify(driver)}>{driver.driver.givenName} {driver.driver.familyName}</option>)}
+                                </select>
+                                {this.state.third.id > 0 &&
+                                    <img style={{ minWidth: "auto", minHeight: 'auto', marginTop: '15px', alignContent: 'center' }} src={this.state.third.imageUrl} alt="DriverPic" width="auto" height="170"></img>
+                                }
+                            </CardBody>
+                        </Card>
+                        <Card style={{ backgroundColor: "black", minHeight: "300px", minWidth: "200px", maxWidth: '200px', borderColor: "red", marginRight: '10px' }}>
+                            <CardBody>
+                                <p style={{ color: 'white', textAlign: 'center' }}>Fastest lap:</p>
+                                <select className="btn btn-danger" style={{ maxWidth: '160px', minWidth: "160px", marginRight: '10px' }} name="drivers" onChange={this.handleFasestLap} value={this.state.drivers}>
+                                    <option value="select">{this.state.fastestLap.givenName} {this.state.fastestLap.familyName}</option>
+                                    {this.state.drivers.map((driver) => <option key={driver.driver.id} value={JSON.stringify(driver)}>{driver.driver.givenName} {driver.driver.familyName}</option>)}
+                                </select>
+                                {this.state.fastestLap.id > 0 &&
+                                    <img style={{ minWidth: "auto", minHeight: 'auto', marginTop: '15px', alignContent: 'center' }} src={this.state.fastestLap.imageUrl} alt="DriverPic" width="auto" height="170"></img>
+                                }
+                            </CardBody>
+                        </Card>
+                    </div>
                 </CardBody>
-            </Card>
+            </Card >
         );
     }
 }

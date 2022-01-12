@@ -20,10 +20,12 @@ namespace DataLayer.Classes
         {//Gets the latest info about the drivers and their constructors
             List<DriverModel> drivers = _context.Driver.Where(d => d.DriverID != "").ToList();
             GetImages getImages = new GetImages(_context);
-            drivers = await getImages.GetDriverImages(drivers);//get image of the circuit
+            drivers = await getImages.GetDriverImages(drivers);//get image of the driver
             List<StandingModel> standingModels = new();
             foreach (DriverModel driver in drivers)
             {
+                _context.Driver.Update(driver);
+                await _context.SaveChangesAsync();
                 List<RaceResultModel> resultModels = _context.RaceResult.Where(r => r.DriverID == driver.DriverID).ToList();
                 StandingModel standingModel = new StandingModel { Driver = driver, Points = 0 };//Set points to 0 before adding the results
                 foreach (RaceResultModel result in resultModels)
@@ -54,8 +56,8 @@ namespace DataLayer.Classes
                     Constructors.Add(standing);
                 }
             }
-/*            GetImages getImages = new GetImages(_context);//Instatiate class
-            Constructors = await getImages.GetConstructorImages(Constructors);//get image of the Constructor*/
+            /*            GetImages getImages = new GetImages(_context);//Instatiate class
+                        Constructors = await getImages.GetConstructorImages(Constructors);//get image of the Constructor*/
             Constructors = Constructors.OrderByDescending(d => d.Points).ToList();
             for (int i = 0; i < Constructors.Count(); i++)
             {//Adds Position in competition to constructor

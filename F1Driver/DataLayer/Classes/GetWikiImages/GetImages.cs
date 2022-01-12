@@ -51,23 +51,7 @@ namespace DataLayer.Classes.GetWikiImages
             }
             return drivers;
         }
-        /*        public async Task<List<ConstructorStandingsModel>> GetConstructorImages(List<ConstructorStandingsModel> constructors)
-                {
-                    foreach (ConstructorStandingsModel constructor in constructors)
-                    {
-                        WikiAPIHelper api = new WikiAPIHelper { RequestString = constructor.Constructor.Url.Remove(0, 29) };//remove unneeded part of the url
-                        JObject parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
-                        List<JToken> imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();//navigate to the image
-                        if (imageToken.Count() < 1)//check if the url is working
-                        {
-                            api = new WikiAPIHelper { RequestString = constructor.Constructor.ConstructorID };//url didnt work so now try it with the id of the circuit instead
-                            parsed = JObject.Parse(await api.SelectJSONFromAPI(api.requestString));
-                            imageToken = parsed["query"]["pages"].Children().Children()["thumbnail"]["source"].ToList();
-                        }
-                        constructor.Constructor.ImageUrl = imageToken[0].ToString();//convert jtoken to string
-                    }
-                    return constructors;
-                }*/
+
         public async Task<string> GetCountryFlag(string flag)
         {
                 API api = new API { RequestString = flag};//remove unneeded part of the url

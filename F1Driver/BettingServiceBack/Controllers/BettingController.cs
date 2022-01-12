@@ -16,9 +16,18 @@ namespace BettingServiceBack.Controllers
             Bet = bet;
         }
         [HttpPost("SetBet")]
-        public async Task<IActionResult> SetBet([FromQuery] string driver,[FromQuery] string category,[FromQuery] int userID, [FromQuery] int race)
+        public async Task<IActionResult> SetBet([FromQuery] int driver,[FromQuery] int category,[FromQuery] int userID, [FromQuery] int race)
         {
             return Ok(await Bet.SetBet(driver,category,userID,race));
+        }        
+        [HttpPost("GetBet")]
+        public async Task<IActionResult> GetBet([FromQuery] int race,[FromQuery] int userID)
+        {
+            if(race==0&&userID ==0)
+            {
+                return Ok();
+            }
+            return Ok(await Bet.GetBet(userID, race));
         }
     }
 }

@@ -1,14 +1,6 @@
 version: '3.4'
 
 services:
-  f1driverback:
-    image: ${DOCKER_REGISTRY-}f1driverback
-    build:
-        context: .
-        dockerfile: F1DriverBack/Dockerfile
-    ports:
-        - "5000:80"
-        
   bettingserviceback:
     image: ${DOCKER_REGISTRY-}bettingserviceback
     build:
@@ -16,6 +8,15 @@ services:
       dockerfile: BettingServiceBack/Dockerfile
     ports:
         - "5001:80"
+
+
+  f1driverback:
+    image: ${DOCKER_REGISTRY-}f1driverback
+    build:
+        context: .
+        dockerfile: F1DriverBack/Dockerfile
+    ports:
+        - "5000:80"
 
 
   db:

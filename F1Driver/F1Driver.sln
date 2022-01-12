@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F1Driver-Front", "F1Driver-Front\F1Driver-Front.csproj", "{2B64FD1B-575E-4EB6-ACDB-18CB0F582FC5}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BettingServiceDataLayer", "BettingServiceDataLayer\BettingServiceDataLayer.csproj", "{5A92EA99-4B9D-4C4B-9797-CDF29ECD38B2}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{1DD32F38-B013-4FD8-A317-D852E5B62969}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40EB5F4F-3483-42ED-AD92-0E8A37A070A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DD32F38-B013-4FD8-A317-D852E5B62969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD32F38-B013-4FD8-A317-D852E5B62969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD32F38-B013-4FD8-A317-D852E5B62969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD32F38-B013-4FD8-A317-D852E5B62969}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
