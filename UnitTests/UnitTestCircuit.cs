@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.InMemory;
 using DataLayer.Classes;
 using DataLayer.Classes.Fill_Database;
 using ModelLayer;
+using DataLayer.Interfaces;
 
 
 namespace UnitTests
@@ -42,9 +43,12 @@ namespace UnitTests
         [TestMethod]
         public async Task TestInsertCircuits()
         {
+            //Arrange
             List<CircuitModel> circuits = new List<CircuitModel> {circuitModel };
             await populateCircuits.InsertCircuits(circuits);
+            //Act
             CircuitModel CircuitCheck = await context.Circuit.Where(x => x.ID == circuitModel.ID).FirstOrDefaultAsync();
+            //Assert
             Assert.IsTrue(CircuitCheck.ID >0);
         }
     }

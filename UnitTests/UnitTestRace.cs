@@ -34,6 +34,18 @@ namespace UnitTest
             CircuitId="americas",
             Country = "United_States",
             RaceName="United States Grand Prix",
+            Season = DateTime.Now.Year,
+            Url = "http://en.wikipedia.org/wiki/2021_United_States_Grand_Prix",
+            Date = DateTime.Now.AddMonths(1),//Add a month so the upcomming race method knows that it should be included
+        };
+        CircuitModel circuitModel = new CircuitModel
+        {
+            ID = 17,
+            CircuitID="americas",
+            Locality = "Austin",
+            Country = "United_States",
+            CircuitName="United States Grand Prix",
+            Url = "http://en.wikipedia.org/wiki/2021_United_States_Grand_Prix",
         };
         RaceResultModel raceResultModel = new RaceResultModel
         {
@@ -57,21 +69,36 @@ namespace UnitTest
         [TestMethod]
         public async Task TestGetUpcomingRaces()
         {
+            //Arrange
+            await context.Race.AddAsync(raceModel);
+            await context.Circuit.AddAsync(circuitModel);
+            await context.SaveChangesAsync();
+            //Act
             List<RaceModel> races = await getRaces.GetUpcomingRaceDB();
-            Assert.AreEqual(0, races.Count());
+            //Assert
+            Assert.AreEqual(1, races.Count());
         }
         [TestMethod]
         public async Task TestGetSeasonRaces()
         {
+            //Arrange
+            await context.Race.AddAsync(raceModel);
+            await context.Circuit.AddAsync(circuitModel);
+            await context.SaveChangesAsync();
+            //Act
             List<RaceModel> races = await getRaces.GetSeasonsRacesDB();
-            Assert.AreEqual(0, races.Count());
+            //Assert
+            Assert.AreEqual(1, races.Count());
         }
         [TestMethod]
         public async Task TestInsertRaces()
         {
+            //Arrange
             List<RaceModel> raceModels = new List<RaceModel> {raceModel};
             List<RaceResultModel> raceResultModels = new List<RaceResultModel> { raceResultModel};
+            //Act
             bool worked = await populateRaces.InsertRaces(raceModels, raceResultModels);
+            //Assert
             Assert.IsTrue((await context.Race.Where(r => r.ID!=0).ToListAsync()).Count()>0);
             Assert.IsTrue((await context.RaceResult.Where(r => r.ID!=0).ToListAsync()).Count()>0);
         }
