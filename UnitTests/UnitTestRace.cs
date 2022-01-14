@@ -12,7 +12,7 @@ using DataLayer.Classes;
 using DataLayer.Classes.Fill_Database;
 using ModelLayer;
 
-namespace UnitTest
+namespace UnitTests
 {
     [TestClass]
     public class UnitTestRace
