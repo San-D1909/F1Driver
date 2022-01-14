@@ -6,12 +6,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["F1DriverBack/F1DriverBack.csproj", "F1DriverBack/"]
-COPY ["ModelLayer/ModelLayer.csproj", "ModelLayer/"]
-COPY ["DataLayer/DataLayer.csproj", "DataLayer/"]
+COPY ["F1Driver/F1DriverBack/F1DriverBack.csproj", "F1DriverBack/"]
+COPY ["F1Driver/ModelLayer/ModelLayer.csproj", "ModelLayer/"]
+COPY ["F1Driver/DataLayer/DataLayer.csproj", "DataLayer/"]
 RUN dotnet restore "F1DriverBack/F1DriverBack.csproj"
 COPY . .
-WORKDIR "/src/F1DriverBack"
+WORKDIR "/src/F1Driver/F1DriverBack"
 RUN dotnet build "F1DriverBack.csproj" -c Release -o /app/build
 
 FROM build AS publish
