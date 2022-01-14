@@ -2,7 +2,7 @@ name: UnitTest
 
 on:
   push:
-    branches: [ main ]
+    branches: [ Gitactions ]
   pull_request:
     branches: [ main ]
 
