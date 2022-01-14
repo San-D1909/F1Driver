@@ -34,7 +34,7 @@ jobs:
         # Target Docker registry
         registry: docker.io
         # Location of Dockerfile, if not Dockerfile in root directory
-        dockerfile: SoftwareFullComponents.ProductComponent/Dockerfile
+        dockerfile: F1Driver/BettingServiceBack/Dockerfile
         # Docker registry username
         username: ${{ secrets.DOCKER_USERNAME }}
         # Docker registry password
