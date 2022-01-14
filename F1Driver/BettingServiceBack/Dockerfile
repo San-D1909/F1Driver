@@ -6,12 +6,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["BettingServiceBack/BettingServiceBack.csproj", "BettingServiceBack/"]
-COPY ["ModelLayer/ModelLayer.csproj", "ModelLayer/"]
-COPY ["BettingServiceDataLayer/BettingServiceDataLayer.csproj", "BettingServiceDataLayer/"]
+COPY ["F1Driver/BettingServiceBack/BettingServiceBack.csproj", "BettingServiceBack/"]
+COPY ["F1Driver/ModelLayer/ModelLayer.csproj", "ModelLayer/"]
+COPY ["F1Driver/BettingServiceDataLayer/BettingServiceDataLayer.csproj", "BettingServiceDataLayer/"]
 RUN dotnet restore "BettingServiceBack/BettingServiceBack.csproj"
 COPY . .
-WORKDIR "/src/BettingServiceBack"
+WORKDIR "/src/F1Driver/BettingServiceBack"
 RUN dotnet build "BettingServiceBack.csproj" -c Release -o /app/build
 
 FROM build AS publish
