@@ -30,7 +30,7 @@ jobs:
       with:
         tags: v1, latest
         # Name of the Docker image
-        image: 9021562279507402860/product-component
+        image: sander1909/bettingserviceback
         # Target Docker registry
         registry: docker.io
         # Location of Dockerfile, if not Dockerfile in root directory
