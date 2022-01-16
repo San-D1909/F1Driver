@@ -22,12 +22,20 @@ namespace UnitTests
     public class UnitTestLoginAndRegister
     {
         Login loginClass;
+        Register registerClass;
         ApplicationDbContext context;
         IConfiguration configuration;
         UserModel DatabaseUser = new UserModel
         {
             ID = 1,
             Password ="a73fa61dfab33f2c1086852f2df1c092",
+            UserName = "tester",
+            Email = "t@t"
+        };        
+        UserModel RegisterUser = new UserModel
+        {
+            ID = 1,
+            Password ="123$%Test",
             UserName = "tester",
             Email = "t@t"
         };
@@ -44,6 +52,7 @@ namespace UnitTests
             context = new ApplicationDbContext(options);
             configuration = builder.Build();
             loginClass = new Login(context, configuration);
+            registerClass = new Register(context, configuration);
         }
 
         [TestMethod]
@@ -57,6 +66,18 @@ namespace UnitTests
             string token = TokenClass.WriteToken(await loginClass.Authenticate(credentials));
             //Assert
             Assert.IsTrue(token.Length>30);
+        }        
+        [TestMethod]
+        public async Task TestRegister()
+        {
+            //Arrange
+
+            //Act
+            string token = TokenClass.WriteToken(await registerClass.RegisterMethod(RegisterUser));
+            UserModel user = await context.User.Where(x => x.ID == RegisterUser.ID).FirstOrDefaultAsync();
+            //Assert
+            Assert.IsTrue(token.Length>30);
+            Assert.IsTrue(user.ID!=0);
         }
     }
 }
