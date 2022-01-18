@@ -40,20 +40,23 @@ describe('Front-End Test', () => {
         cy.get(':nth-child(1) > .form-control').type('Cypress@boy');
         cy.get(':nth-child(2) > .form-control').clear();
         cy.get(':nth-child(2) > .form-control').type('123@#$Test');
-        cy.get('.btn').click();
+        cy.get('.btn').click();/*login page*/
         cy.get('iframe', { timeout: 10000 }).should('be.visible');
-        cy.visit('http://localhost:5002/Group');
+        cy.visit('http://localhost:5002/Group');/*group page*/
         cy.get('table', { timeout: 10000 }).should('be.visible');
         cy.get('.table > :nth-child(1) > :nth-child(2)', {timeout:1000}).click();
-        cy.get('table', { timeout: 10000 }).should('be.visible');
-        cy.get('.card-body > :nth-child(1)').click();
+        cy.wait(1000);
+        cy.get('table', { timeout: 10000 }).should('be.visible');/*In a group*/
+        cy.get('.card-body > :nth-child(1)').click();/*Go to invite page*/
+        cy.wait(1000);
         cy.get('input', { timeout: 10000 }).should('be.visible'); 
         cy.get('input').clear();
-        cy.get('input', {timeout:1000}).type('cypress@boy');
-        cy.get(':nth-child(2) > .btn', { timeout: 1000 }).click();
-        cy.get('.card-body > :nth-child(1) > :nth-child(1)').click();
-        cy.get('table', { timeout: 10000 }).should('be.visible');
-        cy.get('.card-body > :nth-child(3)', { timeout: 1000 }).click();
+        cy.get('input', { timeout: 1000 }).type('cypress@boy');
+        cy.wait(1000);
+        cy.get(':nth-child(2) > .btn').click();
+        cy.get('.card-body > :nth-child(1) > :nth-child(1)').wait(800).click()
+        cy.get('table', { timeout: 10000 }).should('be.visible');/*In group page*/
+        cy.get('.card-body > :nth-child(3)').wait(800).click();;/*Leave Group*/
         cy.get('table', { timeout: 10000 }).should('be.visible');
         cy.visit('http://localhost:5002/logout');
         /* ==== End Cypress Studio ==== */
