@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { Route } from 'react-router';
 import axios from 'axios';
 import "./CSS/Cards.css";
 import "./CSS/Login.css";
@@ -7,7 +8,7 @@ import Card from 'reactstrap/lib/Card';
 import CardBody from 'reactstrap/lib/CardBody';
 import Form from 'reactstrap/lib/Form';
 import Label from 'reactstrap/lib/Label';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect,Switch } from 'react-router-dom';
 import { Input } from 'reactstrap';
 
 export class Login extends Component {
@@ -65,8 +66,11 @@ export class Login extends Component {
 
     render() {
         if (localStorage.getItem("token")) {
+                console.log("succes");
             return (
-                window.location.assign("")
+                <Switch>
+                    <Redirect exact from="/login" to="/" />
+                </Switch>
             )
         }
         return (

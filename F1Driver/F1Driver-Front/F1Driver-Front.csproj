@@ -30,6 +30,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\cypress.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\cypress.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="ClientApp\package-lock.json" />
   </ItemGroup>
 

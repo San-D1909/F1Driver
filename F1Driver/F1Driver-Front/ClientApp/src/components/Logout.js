@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 export class Logout extends Component {
     static displayName = Logout.name;
@@ -10,8 +11,10 @@ export class Logout extends Component {
 
     clearCache = function () {
         localStorage.clear();
-        window.location.assign("");
         console.log(2)
+        return (
+            <Redirect exact to="/login" />
+        );
     }
     render() {
         if (localStorage.getItem("token")) {
